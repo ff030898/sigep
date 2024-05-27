@@ -1,0 +1,26 @@
+<link href="<?php echo WEBFILES ?>css/content_home.css" rel="stylesheet">
+
+<div id="page-wrapper">
+
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="content_home">
+                <img alt="Logo" title="logo" src="<?php echo WEBFILES . "img/logo.png"; ?>" />
+            </div>
+        </div>
+    </div>
+    <!-- /.row -->
+</div>
+
+<?php
+if ($view_data == "empresa") {
+    echo '
+    <script type="text/javascript">
+        trocaCliente();
+    </script>
+    ';
+}
+?>
+
+<!-- /#page-wrapper -->

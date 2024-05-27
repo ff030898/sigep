@@ -1,0 +1,122 @@
+table {
+    width: auto;
+}
+
+.jOrgChart .line {
+    height: 20px;
+    width: 1px;
+}
+
+.jOrgChart .down {
+    background-color: black;
+    margin: 0px auto;
+}
+
+.jOrgChart .top {
+    border-top: 1px solid black;
+}
+
+.jOrgChart .left {
+    font-size: 0px;
+    border-right: 1px solid black;
+}
+
+.jOrgChart .right {
+    font-size: 0px;
+    border-left: 1px solid black;
+}
+
+.jOrgChart td {
+    text-align: center;
+    vertical-align: top;
+    padding: 0;
+}
+
+.jOrgChart .node.selected {
+    background-color: #3399FF !important;
+    border: 1px dotted black;
+}
+
+.jOrgChart .node {
+    border: solid 1px black;
+    background-color: white;
+    display: inline-block;
+    width: 200px;
+    min-height: 100px;
+    z-index: 10;
+    padding: 10px;
+    margin: 0 4px;
+    cursor: pointer;
+}
+
+.jOrgChart .node.vertical {
+    float: left;
+}
+
+.jOrgChart .cover {
+    position: absolute;
+    cursor: pointer;
+    margin-top: -6px;
+    margin-left: -5px;
+}
+
+.jOrgChart .multi-tree {
+    margin: 0;
+    float: left;
+}
+
+.jOrgChart .multi-tree .content {
+    color: black;
+    background-color: white;
+    text-decoration: none;
+    border: 1px solid black;
+    width: 100px;
+    min-height: 60px;
+    cursor: pointer;
+}
+
+.jOrgChart .multi-tree .selected {
+    background-color: #3399FF !important;
+    border: 1px dotted black;
+}
+
+.jOrgChart .multi-tree span {
+    /*width: 109px;*/
+    text-decoration: none;
+    display: block;
+    /*margin: 0 0 0 1.2em;*/
+    /*padding-top: 10px;*/
+    background-color: transparent;
+    border: solid black;
+    border-width: 0 0 1px 1px;
+}
+
+.jOrgChart .multi-tree span .content  {
+    display: block;
+    position: relative;
+    /*top: .95em;*/
+    background-color: #fff;
+    /*margin: 0 0 .2em .7em;*/
+    padding: 0;
+}
+
+.jOrgChart .multi-tree ul, .multi-tree li {
+    list-style-image: none;
+    list-style-position: outside;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.jOrgChart .multi-tree ul li {
+    /*line-height: 1.2em;*/
+}
+
+.jOrgChart .multi-tree ul li ul li {
+    /*margin: 0 0 0 1.2em;*/
+    border-left: 1px solid black;
+}
+
+.jOrgChart .multi-tree li.last ul li {
+    border: none;
+}

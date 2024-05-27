@@ -1,0 +1,117 @@
+<div id="page-wrapper">
+    <form class="frmSave" id="frmSave" autocomplete="off" >
+        <div class="row">
+            <div class="col-lg-8" >
+                <h1 class="page-header">Habilidades (Pesos)</h1>
+            </div>
+            <div class="col-lg-4 botoes_menu" >
+                <button type="button" id="edit" class="btn btn-default page-header " >
+                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Salvar
+                </button>
+
+                <button type="button" id="close" class="btn btn-default page-header " >
+                    <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span> Cancelar
+                </button>
+            </div>
+        </div>
+        <input type="hidden" name="txtID" id="txtID" value="<?php echo $view_indicadores_quali_peso["id"] ?>" >
+        <div class="panel panel-default">
+            <div class="panel-body" >
+                <div class="row">
+                    <div class="col-sm-7">
+                        <div class="form-group">
+                            <label>Indicador*</label>
+                            <select class="form-control" autocomplete="off" name="selIndicador" id="selIndicador" >
+                                <option selected value="">Selecione</option>
+                                <?php
+                                foreach ($view_indicadores as $key => $value) {
+                                    echo '
+                                        <option value="' . $value["id"] . '">' . $value["descricao"] . '</option>
+                                    ';
+                                }
+                                ?>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-1" >
+                        <div class="form-group">
+                            <label>Peso 1*</label>
+                            <input class="form-control" placeholder="0,0" autocomplete="off" value="<?php echo $view_indicadores_quali_peso["peso1"] ?>" name="txtPeso1" id="txtPeso1" maxlength="5">
+                        </div>
+                    </div>
+                    <div class="col-sm-1" >
+                        <div class="form-group">
+                            <label>Intermediário1*</label>
+                            <input class="form-control" placeholder="0,0" autocomplete="off" value="<?php echo $view_indicadores_quali_peso["inter1"] ?>" name="txtInter1" id="txtInter1" maxlength="5">
+                        </div>
+                    </div>
+                    <div class="col-sm-1" >
+                        <div class="form-group">
+                            <label>Peso 2*</label>
+                            <input class="form-control" placeholder="0,0" autocomplete="off" value="<?php echo $view_indicadores_quali_peso["peso2"] ?>" name="txtPeso2" id="txtPeso2" maxlength="5">
+                        </div>
+                    </div>
+                    <div class="col-sm-1" >
+                        <div class="form-group">
+                            <label>Intermediário2*</label>
+                            <input class="form-control" placeholder="0,0" autocomplete="off" value="<?php echo $view_indicadores_quali_peso["inter2"] ?>" name="txtInter2" id="txtInter2" maxlength="5">
+                        </div>
+                    </div>
+                    <div class="col-sm-1" >
+                        <div class="form-group">
+                            <label>Peso 3*</label>
+                            <input class="form-control" placeholder="0,0" autocomplete="off" value="<?php echo $view_indicadores_quali_peso["peso3"] ?>" name="txtPeso3" id="txtPeso3" maxlength="5">
+                        </div>
+                    </div>
+                    <div class="col-sm-1" >
+                        <div class="form-group">
+                            <label>Intermediário3*</label>
+                            <input class="form-control" placeholder="0,0" autocomplete="off" value="<?php echo $view_indicadores_quali_peso["inter3"] ?>" name="txtInter3" id="txtInter3" maxlength="5">
+                        </div>
+                    </div>
+                    <div class="col-sm-1" >
+                        <div class="form-group">
+                            <label>Peso 4*</label>
+                            <input class="form-control" placeholder="0,0" autocomplete="off" value="<?php echo $view_indicadores_quali_peso["peso4"] ?>" name="txtPeso4" id="txtPeso4" maxlength="5">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Situação</label>
+                            <label class="radio-inline">
+                                <input type="radio"  name="radStatus" id="radStatus" value="1" >Ativo
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio"  name="radStatus" id="radStatus" value="0">Inativo
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script src="<?php echo WEBFILES ?>js/indicadores_quali_peso.js?<?php echo filemtime($_SERVER["DOCUMENT_ROOT"] . "/webfiles/js/indicadores_quali_peso.js"); ?>"></script>
+<script src="<?php echo WEBFILES ?>js/scripts.js?<?php echo filemtime($_SERVER["DOCUMENT_ROOT"] . "/webfiles/js/scripts.js"); ?>"></script>
+<script src="<?php echo WEBFILES ?>js/jquery.mask.min.js?<?php echo filemtime($_SERVER["DOCUMENT_ROOT"] . "/webfiles/js/jquery.mask.min.js"); ?>"></script>
+<script src="<?php echo WEBFILES ?>js/jquery.maskMoney.js?<?php echo filemtime($_SERVER["DOCUMENT_ROOT"] . "/webfiles/js/jquery.maskMoney.js"); ?>"></script>
+
+<script type="text/javascript">
+    window.onload = function () {
+        $('#selIndicador').focus();
+        $("#selIndicador").val("<?php echo $view_indicadores_quali_peso["id_ind_qualitativo"] ?>").change();
+        $('input:radio[name="radStatus"][value="<?php echo $view_indicadores_quali_peso["status"]; ?>"]').prop('checked', true);
+        $('#txtPeso1').maskMoney({showSymbol: true, symbol: "", decimal: ",", thousands: ".", precision: 1});
+        $('#txtInter1').maskMoney({showSymbol: true, symbol: "", decimal: ",", thousands: ".", precision: 1});
+        $('#txtPeso2').maskMoney({showSymbol: true, symbol: "", decimal: ",", thousands: ".", precision: 1});
+        $('#txtInter2').maskMoney({showSymbol: true, symbol: "", decimal: ",", thousands: ".", precision: 1});
+        $('#txtPeso3').maskMoney({showSymbol: true, symbol: "", decimal: ",", thousands: ".", precision: 1});
+        $('#txtInter3').maskMoney({showSymbol: true, symbol: "", decimal: ",", thousands: ".", precision: 1});
+        $('#txtPeso4').maskMoney({showSymbol: true, symbol: "", decimal: ",", thousands: ".", precision: 1});
+    }
+</script>

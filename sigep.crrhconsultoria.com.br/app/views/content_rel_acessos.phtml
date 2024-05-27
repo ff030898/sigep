@@ -1,0 +1,121 @@
+<div id="page-wrapper">
+    <form class="frmSave" id="frmSave" autocomplete="off" >
+        <div class="row">
+            <div class="col-lg-12" >
+                <h1 class="page-header">Relatório de Acessos</h1>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-body" >
+                <div class="row">
+                    <div class="col-sm-3">
+                        <label>Usuário (Opcional)</label>
+                        <div class="form-group input-group">
+                            <input autocomplete="off" class="form-control input-group-sm" name="txtUsuario" id="txtUsuario" >
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" id="search" name="search" type="button"><i class="fa fa-search"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <label>Data inicio</label>
+                        <div class="form-group input-group">
+                            <input autocomplete="off" onkeyup="validade(this)" onblur="validade(this)" class="form-control input-group-sm data" maxlength="10" name="txtDataIni" id="txtDataIni" data-mask="00/00/0000" placeholder="00/00/0000" maxlength="10" value="<?php echo date("d/m/Y") ?>" >
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" id="btnDataIni" name="btnDataIni" type="button"><i class="fa fa-calendar"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <label>Data fim</label>
+                        <div class="form-group input-group">
+                            <input autocomplete="off" onkeyup="validade(this)" onblur="validade(this)" class="form-control input-group-sm data" maxlength="10" name="txtDataFim" id="txtDataFim" data-mask="00/00/0000" placeholder="00/00/0000" maxlength="10" value="<?php echo date("d/m/Y") ?>" >
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" id="btnDataFim" name="btnDataFim" type="button"><i class="fa fa-calendar"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Saída</label><br />
+                            <label class="radio-inline">
+                                <input type="radio" required name="radSaida" id="radSaida" checked value="1" >Tela
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" required name="radSaida" id="radSaida" value="0">PDF
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" required name="radSaida" id="radSaida" value="2">Excel
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <button type="button" id="btnGerar" class="btn btn-default " >
+                            <span class="fa fa-list-alt" aria-hidden="true"></span> Gerar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="resultado"></div>
+    </form>
+</div>
+<div class="modal fade" id="loading" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><?php echo TITLE ?></h4>
+            </div>
+            <div class="modal-body" style="text-align: center;">
+                <img alt="loading" title="loading" src="<?php echo WEBFILES ?>/img/loading_1.gif" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="myModal2" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><?php echo TITLE ?></h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group input-group">
+                    <input type="text" class="form-control" name="txtSearch" id="txtSearch">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" onclick="showResult2()" type="button"><i class="fa fa-search"></i></button>
+                    </span>
+                </div>
+                <div id="livesearch" style="position: absolute; background-color: #f5f5f5;  "></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="<?php echo WEBFILES ?>js/rel_acessos.js"></script>
+<script src="<?php echo WEBFILES ?>js/jquery.mask.min.js"></script>
+<script src="<?php echo WEBFILES ?>js/scripts.js"></script>
+
+<script type="text/javascript">
+                            $(function () {
+                                $(".data").datepicker({
+                                    changeMonth: true,
+                                    changeYear: true,
+                                    dateFormat: 'dd/mm/yy',
+                                    dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'],
+                                    dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D'],
+                                    dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
+                                    monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+                                    monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez']
+                                });
+                            });
+</script>

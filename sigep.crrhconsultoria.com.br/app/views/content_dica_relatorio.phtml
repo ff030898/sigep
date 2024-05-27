@@ -1,0 +1,232 @@
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-10" >
+            <h1 class="page-header">DOSSIÊ INDIVIDUAL DO COLABORADOR ATIVO-DICA</h1>
+        </div>
+        <div class="col-lg-2 botoes_menu">
+            <button type="button" id="close_plano_acao" class="btn btn-default page-header " >
+                <span class="glyphicon glyphicon-file" aria-hidden="true"></span> PDF
+            </button>
+            <button type="button" id="close_dica" class="btn btn-default page-header " >
+                <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span> Voltar
+            </button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="form-group">
+                <label>Nome Completo*</label>
+                <input class="form-control" readonly value="<?php echo $view_funcionario["nome"]; ?>" />
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="form-group">
+                <label>Cargo*</label>
+                <input class="form-control" readonly value="<?php echo $view_funcionario["descricao_formatado"]; ?>" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="dataTable_wrapper">
+                <table width="100%" class="table table-striped table-bordered table-hover">
+                    <tr>
+                        <td colspan="4" class="text-center">ÍNDICES QUANTITATIVOS</td>
+                        <td colspan="20" class="text-center"> RESULTADOS/PERÍODO-ANO</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">Competências</td>
+                        <td class="text-center">Previsto</td>
+                        <td class="text-center">Realizado</td>
+                        <?php
+                        foreach ($view_dica["quantitativo"] as $value) {
+                            echo '<td class="text-center">' . $value["ano"] . '</td>';
+                        }
+                        ?>
+                        <td class="text-center">Médias</td>
+                    </tr>
+
+                    <?php
+                    $m = 0;
+                    $mt = 0;
+                    $cAno = array();
+                    foreach ($view_dica["quantitativo"][0]["competencia"] as $key => $vCompetencia) {
+                        $g = 0;
+                        echo '
+                                        <tr>
+                                            <td>' . $vCompetencia["competencia"] . '</td>
+                                            <td class="text-center">' . $vCompetencia["previsto"] . '</td>
+                                            <td class="text-center">' . $vCompetencia["realizado"] . '</td>
+                                            <td class="text-center">' . number_format(($vCompetencia["realizado"] / $vCompetencia["previsto"]) * 100, 2, ",", ".") . '%</td>
+                                    ';
+
+                        if (!isset($cAno[$view_dica["quantitativo"][0]["ano"]]))
+                            $cAno[$view_dica["quantitativo"][0]["ano"]] = ($vCompetencia["realizado"] / $vCompetencia["previsto"]) * 100;
+                        else
+                            $cAno[$view_dica["quantitativo"][0]["ano"]] += ($vCompetencia["realizado"] / $vCompetencia["previsto"]) * 100;
+
+                        $g += ($vCompetencia["realizado"] / $vCompetencia["previsto"]) * 100;
+                        for ($i = 1; $i < count($view_dica["quantitativo"]); $i++) {
+                            echo '<td class="text-center">' . number_format(($view_dica["quantitativo"][$i]["competencia"][$key]["realizado"] / $view_dica["quantitativo"][$i]["competencia"][$key]["previsto"]) * 100, 2, ",", ".") . '%</td>';
+                            $g += ($view_dica["quantitativo"][$i]["competencia"][$key]["realizado"] / $view_dica["quantitativo"][$i]["competencia"][$key]["previsto"]) * 100;
+
+                            if (!isset($cAno[$view_dica["quantitativo"][$i]["ano"]]))
+                                $cAno[$view_dica["quantitativo"][$i]["ano"]] = ($view_dica["quantitativo"][$i]["competencia"][$key]["realizado"] / $view_dica["quantitativo"][$i]["competencia"][$key]["previsto"]) * 100;
+                            else
+                                $cAno[$view_dica["quantitativo"][$i]["ano"]] += ($view_dica["quantitativo"][$i]["competencia"][$key]["realizado"] / $view_dica["quantitativo"][$i]["competencia"][$key]["previsto"]) * 100;
+                        }
+                        echo '<td colspan="20" class="text-center">' . number_format($g / count($view_dica["quantitativo"]), 2, ',', '.') . '%</td>';
+                        echo '</tr>';
+                        $m += $g / count($view_dica["quantitativo"]);
+                        $mt++;
+                    }
+                    error_log("M: " . $m . " MT: " . $mt);
+                    $mediaGeral = $m / $mt;
+                    $conceito = "";
+                    foreach ($view_gdp as $value) {
+                        if (($mediaGeral >= $value["perc_min"]) && ($mediaGeral <= $value["perc_max"])) {
+                            $conceito = $value["classificacao"];
+                            break;
+                        }
+                    }
+                    ?>
+                    <tr>
+                        <td colspan="4" >GDP - GRUPO DE DESEMPENHO PROFISSIONAL = CONCEITO <?php echo $conceito ?></td>
+                        <td colspan="20"> RESULTADOS/PERÍODO-ANO <?php echo number_format($m / $mt, 2, ',', '.') ?>%</td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" class="text-center">ÍNDICES QUALITATIVOS</td>
+                        <td colspan="20" class="text-center"> RESULTADOS/PERÍODO-ANO</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">Habilidades</td>
+                        <?php
+                        $c = 0;
+                        foreach ($view_dica["habilidade"] as $value) {
+                            if ($c == 0)
+                                echo '<td colspan="3" class="text-center">' . $value["ano"] . '</td>';
+                            else
+                                echo '<td class="text-center">' . $value["ano"] . '</td>';
+                            $c = 1;
+                        }
+                        ?>
+                        <td class="text-center">Médias</td>
+                    </tr>
+                    <?php
+                    $m = 0;
+                    $mt = 0;
+                    $hAno = array();
+
+                    foreach ($view_dica["habilidade"][0]["competencia"] as $key => $vCompetencia) {
+
+                        echo '
+                            <tr>
+                                <td>' . $vCompetencia["habilidade"] . '</td>
+                                <td colspan="3" class="text-center">' . number_format($vCompetencia["total"], 2, ",", ".") . '%</td>
+                        ';
+                        $gH = $vCompetencia["total"];
+
+                        if (!isset($hAno[$view_dica["habilidade"][0]["ano"]]))
+                            $hAno[$view_dica["habilidade"][0]["ano"]] = $vCompetencia["total"];
+                        else
+                            $hAno[$view_dica["habilidade"][0]["ano"]] += $vCompetencia["total"];
+
+                        for ($i = 1; $i < count($view_dica["habilidade"]); $i++) {
+                            echo '<td class="text-center">' . number_format($view_dica["habilidade"][$i]["competencia"][$key]["total"], 2, ",", ".") . '%</td>';
+                            $gH += $view_dica["habilidade"][$i]["competencia"][$key]["total"];
+
+                            if (!isset($hAno[$view_dica["habilidade"][$i]["ano"]]))
+                                $hAno[$view_dica["habilidade"][$i]["ano"]] = $view_dica["habilidade"][$i]["competencia"][$key]["total"];
+                            else
+                                $hAno[$view_dica["habilidade"][$i]["ano"]] += $view_dica["habilidade"][$i]["competencia"][$key]["total"];
+                        }
+                        echo '<td class="text-center">' . number_format(($gH / count($view_dica["habilidade"])), 2, ",", ".") . '%</td></tr>';
+                        $m += $gH / count($view_dica["habilidade"]);
+                        $mt++;
+                    }
+
+                    $mediaGeral = $m / $mt;
+                    $conceito = "";
+                    foreach ($view_gdp as $value) {
+                        if (($mediaGeral >= $value["perc_min"]) && ($mediaGeral <= $value["perc_max"])) {
+                            $conceito = $value["classificacao"];
+                            break;
+                        }
+                    }
+                    ?>
+                    <tr>
+                        <td colspan="4" >GDP - GRUPO DE DESEMPENHO PROFISSIONAL = CONCEITO <?php echo $conceito ?></td>
+                        <td colspan="20"> RESULTADOS/PERÍODO-ANO <?php echo number_format($mediaGeral, 2, ',', '.') ?>%</td>
+                    </tr>
+
+
+
+
+                    <tr>
+                        <td colspan="4" class="text-center">LEGENDA GDP - GRUPO DE DESEMPENHO PROFISSIONAL</td>
+                        <td colspan="20" class="text-center">CLASSIFICAÇÃO GERAL</td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">
+                            <table width="100%" class="table ">
+                                <?php
+                                foreach ($view_gdp as $value) {
+                                    echo '<tr><td>de ' . $value["perc_min"] . ' até ' . $value["perc_max"] . ' = "' . $value["classificacao"] . '" - ' . $value["descricao"] . '</td></tr>';
+                                }
+                                ?>
+                            </table>
+                        </td>
+                        <td colspan="20" style="vertical-align: top">
+                            <table class="table">
+                                <tr>
+                                    <td class="text-center">PERÍODO ANO</td>
+                                    <td class="text-center">COMPETÊNCIAS</td>
+                                    <td class="text-center">HABILIDADES</td>
+                                    <td class="text-center">GERAL %</td>
+                                    <td class="text-center">GDP</td>
+                                </tr>
+                                <?php
+                                foreach ($view_dica["quantitativo"] as $key => $value) {
+
+                                    $competencia = $cAno[$value["ano"]] / count($view_dica["quantitativo"][0]["competencia"]);
+                                    $habilidade = $hAno[$value["ano"]] / count($view_dica["habilidade"][0]["competencia"]);
+                                    $geral = ($competencia + $habilidade) / 2;
+
+                                    $conceito = "";
+                                    foreach ($view_gdp as $gdp) {
+                                        if (($geral >= $gdp["perc_min"]) && ($geral <= $gdp["perc_max"])) {
+                                            $conceito = $gdp["classificacao"];
+                                            break;
+                                        }
+                                    }
+
+                                    echo '
+                                        <tr>
+                                            <td class="text-center">' . $value["ano"] . '</td>
+                                            <td class="text-center">' . number_format($cAno[$value["ano"]] / count($view_dica["quantitativo"][0]["competencia"]), 2, ",", ".") . '%</td>
+                                            <td class="text-center">' . number_format($hAno[$value["ano"]] / count($view_dica["habilidade"][0]["competencia"]), 2, ",", ".") . '%</td>
+                                            <td class="text-center">' . number_format($geral, 2, ",", ".") . '</td>
+                                            <td class="text-center">' . $conceito . '</td>
+                                        </tr>
+                                    ';
+                                }
+                                ?>
+                            </table>
+                        </td>
+                    </tr>
+
+
+
+
+
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="<?php echo WEBFILES ?>js/avaliacao.js?<?php echo filemtime($_SERVER["DOCUMENT_ROOT"] . "/webfiles/js/avaliacao.js"); ?>"></script>
+<script src="<?php echo WEBFILES ?>js/scripts.js?<?php echo filemtime($_SERVER["DOCUMENT_ROOT"] . "/webfiles/js/scripts.js"); ?>"></script>

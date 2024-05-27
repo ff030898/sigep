@@ -1,0 +1,40 @@
+<div id="page-wrapper">
+    <form class="frmSave" id="frmSave" autocomplete="off" >
+        <div class="row">
+            <div class="col-lg-8" >
+                <h1 class="page-header">Natureza Ocupacional</h1>
+            </div>
+            <div class="col-lg-4 botoes_menu" >
+                <button type="button" id="save" class="btn btn-default page-header " >
+                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Salvar
+                </button>
+
+                <button type="button" id="close" class="btn btn-default page-header " >
+                    <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span> Cancelar
+                </button>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-body" >
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="col-sm-" >
+                            <div class="form-group">
+                                <label>Descrição*</label>
+                                <input class="form-control" onkeyup="validade(this)" onblur="validade(this)" autocomplete="off" name="txtDescricao" id="txtDescricao" maxlength="250" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<script src="<?php echo WEBFILES ?>js/nat_ocupacional.js?<?php echo filemtime($_SERVER["DOCUMENT_ROOT"] . "/webfiles/js/nat_ocupacional.js"); ?>"></script>
+<script src="<?php echo WEBFILES ?>js/scripts.js?<?php echo filemtime($_SERVER["DOCUMENT_ROOT"] . "/webfiles/js/scripts.js"); ?>"></script>
+
+<script type="text/javascript">
+                                    window.onload = function () {
+                                        $('#txtDescricao').focus();
+                                    }
+</script>

@@ -1,0 +1,302 @@
+<div id="page-wrapper">
+    <form class="frmSave" id="frmSave" autocomplete="off" >
+        <div class="row">
+            <div class="col-lg-8" >
+                <h1 class="page-header">Clientes</h1>
+            </div>
+            <div class="col-lg-4 botoes_menu" >
+                <button type="button" id="save" class="btn btn-default page-header " >
+                    <span class="glyphicon glyphicon-ok" aria-hidden="true" tabindex="34"></span> Salvar
+                </button>
+
+                <button type="button" id="close" class="btn btn-default page-header " >
+                    <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span> Cancelar
+                </button>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <div class="panel panel-default">
+            <!-- /.panel-heading -->
+            <div class="panel-body" >
+                <div class="row">
+                    <div class="col-sm-6" >
+                        <div class="form-group">
+                            <label>Nome Abreviado*</label>
+                            <input autocomplete="off" onkeyup="validade(this)" onblur="validade(this)" class="form-control input-group-sm" maxlength="20" name="txtName" id="txtName" required tabindex="1">
+                            <p class="help-block">Nome abreviado do cliente para rápida consulta.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tabs-content">
+                <div class="tabs-menu clearfix">
+                    <ul>
+                        <li><a class="active-tab-menu" href="#" data-tab="tab1">Cliente</a></li>
+                        <li><a href="#" data-tab="tab2" tabindex="6">Fiscal</a></li>
+                        <li><a href="#" data-tab="tab3" tabindex="13">Endereço</a></li>
+                        <li><a href="#" data-tab="tab4" tabindex="23">Comunicação</a></li>
+                        <li><a href="#" data-tab="tab5" tabindex="32">Observações</a></li>
+                    </ul>
+                </div> <!-- tabs-menu -->
+
+                <div class="tab1 tabs first-tab">
+
+                    <div class="panel-body" >
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Razão social/Nome*</label>
+                                    <input class="form-control" onkeyup="validade(this)" onblur="validade(this)" autocomplete="off" name="txtSocial_razon" id="txtSocial_razon" maxlength="200" required tabindex="2">
+                                    <!--<p class="help-block">Razão social do cliente.</p>-->
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Ramo atividade</label>
+                                    <input class="form-control" autocomplete="off" name="txtActivity" id="txtActivity" maxlength="300" tabindex="3">
+                                    <!--<p class="help-block">Informar o ramo de atividade do cliente.</p>-->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Tipo de negócio*</label>
+                                    <select class="form-control" autocomplete="off" name="selTipoNegocio" id="selTipoNegocio" >
+                                        <option selected value="">Selecione</option>
+                                        <?php
+                                        foreach ($view_tipo_negocio as $key => $value) {
+                                            echo '<option value="' . $value["id"] . '">' . $value["descricao"] . '</option>';
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Quantidade Funcionários</label>
+                                    <input type="number" id="txtQtdeFuncionarios" autocomplete="off" class="form-control" min="0" maxlength="4" step="1" value="0" onkeyup="validade(this)" onblur="validade(this)"  />
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- .tab1 -->
+                <div class="tab2 tabs">
+                    <div class="panel-body" >
+                        <div class="row">
+                            <div class="col-sm-6" >
+                                <div class="form-group">
+                                    <label>Natureza*</label>
+                                    <select class="form-control" name="selNature" id="selNature" tabindex="7">
+                                        <option value="1">Pessoa Jurídica</option>
+                                        <option value="2">Pessoa Física</option>
+                                    </select>
+                                    <!--<p class="help-block">Tipo do cliente.</p>-->
+                                </div>
+                                <div class="form-group">
+                                    <label>CNPJ/CPF*</label>
+                                    <input class="form-control" onkeyup="validade(this)" onblur="consultaCNPJ(this)" autocomplete="off" data-mask="00.000.000/0000-00" placeholder="00.000.000/0000-00" name="txtCPF" id="txtCNPJ" maxlength="18" tabindex="9" >
+                                    <input class="form-control" onkeyup="validade(this)" onblur="validade(this)" autocomplete="off" data-mask="000.000.000-00" placeholder="000.000.000-00" name="txtCPF" id="txtCPF" maxlength="14" tabindex="9">
+                                    <!--<p class="help-block">Número identificação federal.</p>-->
+                                </div>
+                                <div class="form-group">
+                                    <label>Inscrição INSS/CEI</label>
+                                    <input class="form-control" autocomplete="off" name="txtInss" id="txtINSS" maxlength="25" tabindex="11">
+                                    <!--<p class="help-block">Número da inscrição inss ou cei.</p>-->
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>CNAE</label>
+                                    <input class="form-control" autocomplete="off" name="txtCNAE" id="txtCNAE" maxlength="10" placeholder="00.00-0-00" data-mask="00.00-0-00" tabindex="8">
+                                    <!--<p class="help-block">Número da inscrição municipal.</p>-->
+                                </div>
+                                <div class="form-group">
+                                    <label>Inscrição estadual</label>
+                                    <input class="form-control" autocomplete="off" name="txtIE" id="txtIE" maxlength="18" placeholder="000000000.00-00" data-mask="000000000.00-00" tabindex="10">
+                                    <!--<p class="help-block">Número da inscrição estadual.</p>-->
+                                </div>
+                                <div class="form-group">
+                                    <label>Inscrição municipal</label>
+                                    <input class="form-control" autocomplete="off" name="txtIM" id="txtIM" maxlength="25" tabindex="12">
+                                    <!--<p class="help-block">Número da inscrição municipal.</p>-->
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- .tab2 -->
+
+                <div class="tab3 tabs">
+                    <div class="panel-body" >
+                        <div class="row">
+                            <div class="col-sm-6" >
+                                <div class="form-group">
+                                    <label>Endereço*</label>
+                                    <input class="form-control" onkeyup="validade(this)" onblur="validade(this)" autocomplete="off" name="txtAddress" id="txtAddress" required maxlength="100" tabindex="14">
+                                    <!--<p class="help-block">Razão social do cliente.</p>-->
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Bairro*</label>
+                                    <input class="form-control" onkeyup="validade(this)" onblur="validade(this)" autocomplete="off" name="txtDistrict" id="txtDistrict" required maxlength="100" tabindex="16">
+                                    <!--<p class="help-block">Data de cadastro do cliente.</p>-->
+                                </div>
+                                <div class="form-group">
+                                    <label>Estado*</label>
+                                    <select class="form-control" onkeyup="validade(this)" onblur="validade(this)" required id="selProvincy" name="selProvincy" tabindex="18"></select>
+                                    <!--<p class="help-block">Selecionar o grupo de clientes.</p>-->
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Caixa postal</label>
+                                    <input class="form-control" id="txtPOBox" name="txtPOBox" maxlength="5" tabindex="20">
+                                    <!--<p class="help-block">Informar o ramo de atividade do cliente.</p>-->
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Número*</label>
+                                    <input class="form-control" onkeyup="validade(this)" onblur="validade(this)" autocomplete="off" name="txtNumber" id="txtNumber" required maxlength="10" tabindex="15">
+                                    <!--<p class="help-block">Data de cadastro do cliente.</p>-->
+                                </div>
+                                <div class="form-group">
+                                    <label>CEP*</label>
+                                    <input class="form-control" onkeyup="validade(this)" onblur="validade(this)" autocomplete="off" name="txtCEP" id="txtCEP" required data-mask="00.000-000" placeholder="00.000-000" maxlength="10" tabindex="17">
+                                    <!--<p class="help-block">Informar o ramo de atividade do cliente.</p>-->
+                                </div>
+                                <div class="form-group">
+                                    <label>Cidade*</label>
+                                    <select class="form-control" onkeyup="validade(this)" onblur="validade(this)" required id="selCity" name="selCity" tabindex="19"></select>
+                                    <!--<p class="help-block">Selecionar o grupo de clientes.</p>-->
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Complemento</label>
+                                    <input class="form-control" autocomplete="off" name="txtComplement" id="txtComplement" maxlength="50" tabindex="21">
+                                    <!--<p class="help-block">Informar o ramo de atividade do cliente.</p>-->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label>Ponto referência</label>
+                                    <input class="form-control" autocomplete="off" name="txtPtReference" id="txtPtReference" maxlength="200">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- .tab3 -->
+
+                <div class="tab4 tabs">
+                    <div class="panel-body" >
+                        <div class="row">
+                            <div class="col-sm-6" >
+                                <div class="form-group">
+                                    <label>Telefone(1)*</label>
+                                    <input class="form-control" onkeyup="validade(this)" onblur="validade(this)" required autocomplete="off" maxlength="16" name="txtPhone1" id="txtPhone1" placeholder="(00) 0000-0000" tabindex="24" >
+                                    <!--<p class="help-block">Razão social do cliente.</p>-->
+                                </div>
+                                <div class="form-group">
+                                    <label>Telefone(2)</label>
+                                    <input class="form-control" autocomplete="off" name="txtPhone2" id="txtPhone2" placeholder="(00) 0000-0000" maxlength="16" tabindex="26">
+                                    <!--<p class="help-block">Data de cadastro do cliente.</p>-->
+                                </div>
+                                <div class="form-group">
+                                    <label>Telefone(3)</label>
+                                    <input class="form-control" autocomplete="off" name="txtPhone3" id="txtPhone3" placeholder="(00) 0000-0000" maxlength="16" tabindex="28">
+                                    <!--<p class="help-block">Data de cadastro do cliente.</p>-->
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Ramal(1)</label>
+                                    <input class="form-control" autocomplete="off" name="txtRamal1" id="txtRamal1" data-mask="00000" maxlength="5" tabindex="25">
+                                    <!--<p class="help-block">Data de cadastro do cliente.</p>-->
+                                </div>
+                                <div class="form-group">
+                                    <label>Ramal(2)</label>
+                                    <input class="form-control" autocomplete="off" name="txtRamal2" id="txtRamal2" data-mask="00000" maxlength="5" tabindex="27">
+                                    <!--<p class="help-block">Selecionar o grupo de clientes.</p>-->
+                                </div>
+                                <div class="form-group">
+                                    <label>Ramal(3)</label>
+                                    <input class="form-control" autocomplete="off" name="txtRamal3" id="txtRamal3" data-mask="00000" maxlength="5" tabindex="29">
+                                    <!--<p class="help-block">Selecionar o grupo de clientes.</p>-->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label>E-mail</label>
+                                    <input required class="form-control" autocomplete="off" name="txtEmail" id="txtEmail" maxlength="50" placeholder="exemplo@exemplo.com.br" tabindex="30">
+                                    <!--<p class="help-block">Selecionar o grupo de clientes.</p>-->
+                                </div>
+                                <div class="form-group">
+                                    <label>Home page(site)</label>
+                                    <input class="form-control" autocomplete="off" name="txtSite" id="txtSite" maxlength="50" placeholder="http://www.exemplo.com.br" tabindex="31">
+                                    <!--<p class="help-block">Selecionar o grupo de clientes.</p>-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- .tab4 -->
+                <div class="tab5 tabs">
+                    <div class="panel-body" >
+                        <div class="row">
+                            <div class="col-sm-12" >
+                                <div class="form-group">
+                                    <textarea class="form-control" name="txtObservacao" id="txtObservacao" rows="6" tabindex="33"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--</div>  .tabs -->
+            </div>
+            <!-- /.panel-body -->
+        </div>
+    </form>
+</div>
+<script src="<?php echo WEBFILES ?>js/clients.js"></script>
+<script src="<?php echo WEBFILES ?>js/scripts.js"></script>
+<script src="<?php echo WEBFILES ?>js/jquery.mask.min.js"></script>
+<script src="<?php echo WEBFILES ?>js/cidades-estados-v0.2.js"></script>
+
+
+<script type="text/javascript">
+                                        window.onload = function () {
+                                            new dgCidadesEstados(document.getElementById('selProvincy'), document.getElementById('selCity'), true);
+                                            $('#txtName').focus();
+                                            var d = new Date();
+                                            $('#txtDt_ini').val(<?php echo '"' . date("d/m/Y") . '"'; ?>);
+                                        }
+
+                                        var SPMaskBehavior = function (val) {
+                                            return val.replace(/\D/g, '').length === 11 ? '(00) 0 0000-0000' : '(00) 0000-00009';
+                                        },
+                                                spOptions = {
+                                                    onKeyPress: function (val, e, field, options) {
+                                                        field.mask(SPMaskBehavior.apply({}, arguments), options);
+                                                    }
+                                                };
+
+                                        var MaskCNPJCPF = function (val) {
+                                            return val.replace(/\D/g, '').length === 11 ? '000.000.000-00' : '00.000.000-0000-00';
+                                        }, CPNJOptions = {
+                                            onKeyPress: function (val, e, field, options) {
+                                                field.mask(MaskCNPJCPF.apply({}, arguments), options);
+                                            }
+                                        };
+
+                                        $('#txtPhone1').mask(SPMaskBehavior, spOptions);
+                                        $('#txtPhone2').mask(SPMaskBehavior, spOptions);
+                                        $('#txtPhone3').mask(SPMaskBehavior, spOptions);
+                                        $('#txtIDFederal').mask(MaskCNPJCPF, CPNJOptions);
+</script>

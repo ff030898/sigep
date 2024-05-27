@@ -1,0 +1,178 @@
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-1" >
+            <h1 class="page-header">PDI</h1>
+        </div>
+        <div class="col-lg-7">
+            <h3><?php echo $view_pdi["dados"]["nome"] ?></h3>
+            <h4><?php echo $view_pdi["dados"]["cargo"] ?></h4>
+        </div>
+        <div class="col-lg-4 botoes_menu" >
+            <button type="button" id="atualizar_status_plano_acao" class="btn btn-default page-header " >
+                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Concluir
+            </button>
+
+            <button type="button" id="close_plano_acao" class="btn btn-default page-header " >
+                <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span> Voltar
+            </button>
+        </div>
+    </div>
+    <input type="hidden" id="txtId" value="<?php echo $view_pdi["dados"]["id"] ?>" />
+    <div class="panel panel-default">
+        <div class="panel-body" >
+            <div class="row">
+                <div class="col-lg-12">
+                    <h3>Competências</h3>
+                </div>
+            </div>
+
+            <?php
+            foreach ($view_pdi["indicadores_quantitativos"] as $value) {
+                echo '
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            ' . $value["descricao"] . '
+                        </div>
+                        <div class="panel-body">
+                ';
+                foreach ($value["indicadores"] as $value_indicadores) {
+                    echo '
+                        <div class="panel panel-success">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-lg-9">
+                                        <b>NÃO CONFORMIDADE</b><br />
+                                        ' . $value_indicadores["indicadores"] . '
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <b>ÍNDICE ALCANÇADO</b><br />
+                                        ' . $value_indicadores["negacao"] . '
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <table width="100%" class="table table-striped table-bordered table-hover" id="tbl' . $value_indicadores["id"] . '">
+                                            <thead>
+                                                <tr>
+                                                    <th>Plano de Ação</th>
+                                                    <th>Evidências dos Resultados/Metas</th>
+                                                    <th>Matriz GUT</th>
+                                                    <th>Participantes/Área</th>
+                                                    <th style="width: 170px;">Situação</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                ';
+                    foreach ($value_indicadores["plano_acao"] as $value_plano_acao) {
+                        echo '
+                            <tr>
+                                <td>' . $value_plano_acao["plano_acao"] . '</td>
+                                <td>' . $value_plano_acao["evidencia"] . '</td>
+                                <td>' . $value_plano_acao["gut"] . '</td>
+                                <td>' . $value_plano_acao["participantes"] . '</td>
+                                <td>
+                                    <select class="form-control" autocomplete="off" tipo="quantitativos" id_plano_acao="' . $value_plano_acao["id"] . '" id="selSitCompetencia' . $value_plano_acao["id"] . '">
+                                        <option ' . ($value_plano_acao["status"] == 0 ? "selected" : "") . ' value="0">NÃO INICIADO</option>
+                                        <option ' . ($value_plano_acao["status"] == 1 ? "selected" : "") . ' value="1">EM ANDAMENTO</option>
+                                        <option ' . ($value_plano_acao["status"] == 2 ? "selected" : "") . ' value="2">REALIZADO</option>
+                                        <option ' . ($value_plano_acao["status"] == 3 ? "selected" : "") . ' value="3">CANCELADO</option>
+                                    </select>
+                                </td>
+                            </tr>
+                        ';
+                    }
+                    echo'
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    ';
+                }
+
+                echo'
+                            </div>
+                        </div>
+                ';
+            }
+            ?>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-body" >
+            <div class="row">
+                <div class="col-lg-12">
+                    <h3>Habilidades</h3>
+                </div>
+            </div>
+            <?php
+            foreach ($view_pdi["indicadores_qualitativos"] as $key => $value) {
+                echo '
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-lg-9">
+                                    <b>NÃO CONFORMIDADE: ' . $value["descricao"] . '</b><br />
+                                    ' . $value["avaliacao"]["descricao"] . '
+                                </div>
+                                <div class="col-lg-3">
+                                    <b>ÍNDICE ALCANÇADO</b><br />
+                                    Ordem Horizontal ' . $value["avaliacao"]["ordem_horizontal"] . ' ' . ($value["avaliacao"]["intermediario"] ? "Intermediário" : "") . '
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body" >
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <table width="100%" class="table table-striped table-bordered table-hover" id="tblHabilidades' . $value["avaliacao"]["id"] . '">
+                                        <thead>
+                                            <tr>
+                                                <th>Plano de Ação</th>
+                                                <th>Evidências dos Resultados/Metas</th>
+                                                <th>Matriz GUT</th>
+                                                <th>Participantes/Área</th>
+                                                <th style="width: 170px;">Situação</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        ';
+                foreach ($value["plano_acao"] as $value_plano_acao) {
+                    echo '
+                        <tr>
+                                <td>' . $value_plano_acao["plano_acao"] . '</td>
+                                <td>' . $value_plano_acao["evidencia"] . '</td>
+                                <td>' . $value_plano_acao["gut"] . '</td>
+                                <td>' . $value_plano_acao["participantes"] . '</td>
+                                <td>
+                                    <select class="form-control" autocomplete="off" tipo="qualitativos" id_plano_acao="' . $value_plano_acao["id"] . '" id="selSitHabilidades' . $value_plano_acao["id"] . '">
+                                        <option ' . ($value_plano_acao["status"] == 0 ? "selected" : "") . ' value="0">NÃO INICIADO</option>
+                                        <option ' . ($value_plano_acao["status"] == 1 ? "selected" : "") . ' value="1">EM ANDAMENTO</option>
+                                        <option ' . ($value_plano_acao["status"] == 2 ? "selected" : "") . ' value="2">REALIZADO</option>
+                                        <option ' . ($value_plano_acao["status"] == 3 ? "selected" : "") . ' value="3">CANCELADO</option>
+                                    </select>
+                                </td>
+                            </tr>
+                    ';
+                }
+                echo '
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                ';
+            }
+            ?>
+        </div>
+    </div>
+
+</div>
+
+
+<script src="<?php echo WEBFILES ?>js/pdi.js?<?php echo filemtime(getenv("DOCUMENT_ROOT") . "/webfiles/js/pdi.js"); ?>"></script>
+<script src="<?php echo WEBFILES ?>js/scripts.js?<?php echo filemtime(getenv("DOCUMENT_ROOT") . "/webfiles/js/scripts.js"); ?>"></script>

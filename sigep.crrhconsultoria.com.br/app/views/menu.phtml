@@ -1,0 +1,209 @@
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+    <div class="navbar-header" >
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/"><img alt="logo" title="Logo" src="<?php echo WEBFILES ?>img/logo_menu.png" /></a>
+        <p class="unidade"><a href="javascript:trocaCliente();"><?php echo $_SESSION["nome_cliente"]; ?></a></p>
+
+    </div>
+
+    <!-- /.navbar-header -->
+
+    <ul class="nav navbar-top-links navbar-right">
+
+        <li class="dropdown">
+            <a class="dropdown-toggle" id="teste" data-toggle="dropdown" href="#">
+                <i class="fa fa-user"></i>
+                <?php echo $_SESSION['user_name'] ?>
+            </a>
+            <ul class="dropdown-menu dropdown-user">
+                <li><a href="#"><i class="fa fa-user"></i> User Profile</a></li>
+                <li><a href="#"><i class="fa fa-book"></i> Settings</a></li>
+                <li class="divider"></li>
+                <li><a href="/usuarios/alterar"><i class="fa fa-key"></i> Alterar senha</a></li>
+                <li class="divider"></li>
+                <li><a href="/login/sair"><i class="fa fa-power-off"></i> Logout</a></li>
+            </ul>
+            <!-- /.dropdown-user -->
+        </li>
+        <!-- /.dropdown -->
+    </ul>
+    <!-- /.navbar-top-links -->
+
+    <div class="navbar-default sidebar" role="navigation">
+        <div class="sidebar-nav navbar-collapse">
+            <?php
+            $menu = new Menu_Model();
+            print_r($menu->montaMenu(12));
+            ?>
+        </div>
+    </div>
+</nav>
+
+<div class="modal fade" id="Loading" role="dialog">
+    <div class="modal-dialog" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><?php echo TITLE ?></h4>
+            </div>
+            <div class="modal-body" style="text-align: center">
+                <img alt="loading" title="loading" src="<?php echo WEBFILES ?>/img/loading_1.gif" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ModalSucesso" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"><?php echo TITLE ?></h4>
+            </div>
+            <div class="modal-body">
+                <p>Dados cadastrados com Sucesso!</p>
+                <label class="text-warning" id="lblMsgWarning"></label>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="ModalSucessoOK" onclick="ModalSucessoRedirect()" class="btn btn-default" data-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="ModalFaltaCadastro" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><?php echo TITLE ?></h4>
+            </div>
+            <div class="modal-body">
+                <p>Verifique todos os campos obrigatórios!</p>
+                <p>Os campos obrigatórios estarão destacados de verde</p>
+                <label class="text-danger" id="lblMsgFCadastro"></label>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ModalJaExisteCadastro" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><?php echo TITLE ?></h4>
+            </div>
+            <div class="modal-body">
+                <p>Dados de entrada inválidos!</p>
+                <p>Já existe um registro com os dados informados</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ModalRemove" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><?php echo TITLE ?></h4>
+            </div>
+            <div class="modal-body">
+                <p>Tem certeza de que deseja remover esse registro?!</p>
+                <button type="button" class="btn btn-danger" id="remover" data-dismiss="modal">Sim! Sei o que estou fazendo</button>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ModalRemoveErro" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><?php echo TITLE ?></h4>
+            </div>
+            <div class="modal-body">
+                <p>Erro na remoção!</p>
+                <p>Não foi posível remover o registro selecionado pois o mesmo possui relacionamentos</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="changeCliente" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><?php echo TITLE ?></h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Trocar cliente</label>
+                    <select class="form-control" onchange="troca_cliente(this.value)" autocomplete="off" name="selTrocaCliente" id="selTrocaCliente" >
+                        <option selected value="0">Geral</option>
+                        <?php
+                        $clients = new Clients_Model();
+
+                        $clientes = $clients->getClients();
+                        foreach ($clientes as $key => $value) {
+                            if ($_SESSION["id_cliente"] == $value["id"]) {
+                                echo '
+                                    <option selected value="' . $value["id"] . '">' . $value["social_razon"] . '</option>
+                                ';
+                            } else {
+                                echo '
+                                    <option value="' . $value["id"] . '">' . $value["social_razon"] . '</option>
+                                ';
+                            }
+                        }
+                        ?>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ModalErro" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><?php echo TITLE ?></h4>
+            </div>
+            <div class="modal-body">
+                <p>Não foi possível concluir a Operação!</p>
+                <p>Gentileza procurar o responsável pelo sistema!</p>
+                <label class="text-danger" id="lblMsgErro"></label>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>

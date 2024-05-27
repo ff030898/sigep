@@ -1,0 +1,110 @@
+
+<div id="page-wrapper">
+    <form class="frmSave" id="frmSave" autocomplete="off" >
+        <div class="row">
+            <div class="col-lg-8" >
+                <h1 class="page-header">Usuários</h1>
+            </div>
+            <div class="col-lg-4 botoes_menu" >
+                <button type="button" id="edit" class="btn btn-default page-header " >
+                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Salvar
+                </button>
+
+                <button type="button" id="close" class="btn btn-default page-header " >
+                    <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span> Cancelar
+                </button>
+            </div>
+            <!-- /.col-lg-12 -->
+            <input type="hidden" name="txtID" id="txtID" value="<?php echo $view_user["id"]; ?>" >
+        </div>
+
+        <div class="panel panel-default">
+            <!-- /.panel-heading -->
+            <div class="panel-body" >
+                <div class="row">
+                    <div class="col-sm-6" >
+                        <div class="form-group">
+                            <label>Nome</label>
+                            <input class="form-control" onkeyup="validade(this)" onblur="validade(this)" autocomplete="off" name="txtNome" id="txtNome" maxlength="50" value="<?php echo $view_user["name"]; ?>" required>
+                        </div>
+                        <div class="form-group">
+                            <label>E-mail</label>
+                            <input class="form-control" onkeyup="validade(this)" onblur="validade(this)" autocomplete="off" name="txtEmail" id="txtEmail" maxlength="50" value="<?php echo $view_user["email"]; ?>" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Restrição acesso</label>
+                            <select class="form-control" autocomplete="off" name="selRestricao" id="selRestricao" >
+                                <?php
+                                foreach ($view_restricao as $restricao => $t) {
+                                    echo '<option value="' . $t["id"] . '">' . $t["nome"] . '</option>';
+                                }
+                                ?>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Situação</label>
+                            <label class="radio-inline">
+                                <input type="radio" required <?php if ($view_user["status"] == 1) echo "checked"; ?> name="radStatus" id="radStatus" value="1" >Ativo
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" required <?php if ($view_user["status"] == 0) echo "checked"; ?> name="radStatus" id="radStatus" value="0">Inativo
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                Permissões
+                            </div>
+                            <div class="panel-body">
+                                <div id="tree">
+                                    <?php print_r($view_menu); ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+
+                    </div>
+                </div>
+                <!--</div>  .tabs -->
+            </div>
+
+            <!-- /.panel-body -->
+        </div>
+    </form>
+</div>
+<div class="modal fade" id="loading" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><?php echo TITLE ?></h4>
+            </div>
+            <div class="modal-body" style="text-align: center">
+                <img alt="loading" title="loading" src="<?php echo WEBFILES ?>/img/loading_1.gif" />
+            </div>
+        </div>
+    </div>
+</div>
+<script src="<?php echo WEBFILES ?>js/usuarios.js"></script>
+<script src="<?php echo WEBFILES ?>js/scripts.js"></script>
+<script src="<?php echo WEBFILES ?>js/jquery.tree.min.js"></script>
+<script type="text/javascript">
+                                $("#selRestricao").val("<?php echo $view_user["restricao"]; ?>").change();
+                                $(document).ready(function () {
+                                    $('#tree').tree({
+                                        collapsible: true,
+                                        dnd: false,
+                                        onCheck: {
+                                            node: 'expand'
+                                        },
+                                        onUncheck: {
+                                            node: 'collapse'
+                                        },
+                                    });
+                                });
+
+</script>

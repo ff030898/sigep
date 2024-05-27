@@ -1,0 +1,118 @@
+<div id="page-wrapper">
+    <form class="frmSave" id="frmSave" autocomplete="off" >
+        <div class="row">
+            <div class="col-lg-8" >
+                <h1 class="page-header">Usuários Clientes</h1>
+            </div>
+            <div class="col-lg-4 botoes_menu" >
+                <button type="button" id="save" class="btn btn-default page-header " >
+                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Salvar
+                </button>
+
+                <button type="button" id="close" class="btn btn-default page-header " >
+                    <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span> Cancelar
+                </button>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-body" >
+                <div class="row">
+                    <div class="col-sm-6" >
+                        <div class="form-group">
+                            <label>Nome</label>
+                            <input class="form-control" onkeyup="validade(this)" onblur="validade(this)" autocomplete="off" name="txtNome" id="txtNome" maxlength="50" required>
+                        </div>
+                        <div class="form-group">
+                            <label>E-mail</label>
+                            <input class="form-control" autocomplete="off" name="txtEmail" id="txtEmail" maxlength="50" >
+                        </div>
+                        <div class="form-group">
+                            <label>Restrição acesso</label>
+                            <select class="form-control" autocomplete="off" name="selRestricao" id="selRestricao" >
+                                <?php
+                                foreach ($view_restricao as $restricao => $t) {
+                                    echo '<option value="' . $t["id"] . '">' . $t["nome"] . '</option>';
+                                }
+                                ?>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Situação</label>
+                            <label class="radio-inline">
+                                <input type="radio" required name="radStatus" id="radStatus" checked value="1" >Ativo
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" required name="radStatus" id="radStatus" value="0">Inativo
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                Permissões
+                            </div>
+                            <div class="panel-body">
+                                <div id="tree">
+                                    <?php print_r($view_menu); ?>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                Avaliações
+                            </div>
+                            <div class="panel-body">
+
+                                <table width="100%" style="vertical-align: middle" class="table table-striped table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <td></td>
+                                            <th>Unidade</th>
+                                            <th>Área</th>
+                                            <th>Setor</th>
+                                            <th>Ambiente</th>
+                                            <th>Célula</th>
+                                        </tr>
+                                    </thead>
+                                    <?php
+                                    foreach ($view_celula as $key => $value) {
+                                        echo '
+                                        <tr>
+                                            <td><input class="form-check-input" type="checkbox" id="chkCelu' . $value["id"] . '" name="chkCelu' . $value["id"] . '"></td>
+                                            <td>' . $value["unidade"] . '</td>
+                                            <td>' . $value["area"] . '</td>
+                                            <td>' . $value["setor"] . '</td>
+                                            <td>' . $value["ambiente"] . '</td>
+                                            <td>' . $value["celula"] . '</td>
+                                        </tr>
+                                    ';
+                                    }
+                                    ?>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script src="<?php echo WEBFILES ?>js/scripts.js?<?php echo filemtime($_SERVER["DOCUMENT_ROOT"] . "/webfiles/js/scripts.js"); ?>"></script>
+<script src="<?php echo WEBFILES ?>js/clients_users.js?<?php echo filemtime($_SERVER["DOCUMENT_ROOT"] . "/webfiles/js/clients_users.js"); ?>"></script>
+<script src="<?php echo WEBFILES ?>js/jquery.tree.min.js?<?php echo filemtime($_SERVER["DOCUMENT_ROOT"] . "/webfiles/js/jquery.tree.min.js"); ?>"></script>
+<script type="text/javascript">
+                                $(document).ready(function () {
+                                    $('#tree').tree({
+                                        collapsible: true,
+                                        dnd: false,
+                                        onCheck: {
+                                            node: 'expand'
+                                        },
+                                        onUncheck: {
+                                            node: 'collapse'
+                                        },
+                                    });
+                                });
+</script>

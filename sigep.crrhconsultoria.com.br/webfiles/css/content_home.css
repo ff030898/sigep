@@ -1,0 +1,15 @@
+.content_home{
+
+    text-align: center;
+    /*border: 1px solid #000;*/
+    padding-top: 50px;
+
+}
+
+.content_home img{
+    max-width:100%;
+}
+
+.content_home label{
+    font-size: 4vw;
+}

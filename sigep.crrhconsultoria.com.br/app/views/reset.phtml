@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link rel="icon" href="<?php echo WEBFILES ?>img/favicon.ico">
+
+        <title><?php echo TITLE ?></title>
+
+        <!-- Bootstrap core CSS -->
+        <link href="<?php echo WEBFILES ?>css/bootstrap.min.css" rel="stylesheet">
+        <script src="<?php echo WEBFILES ?>js/jquery.min.js"></script>
+        <script src="<?php echo WEBFILES ?>js/bootstrap.min.js"></script>
+        <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+        <!--[if lt IE 9]><script src="<?php echo WEBFILES ?>js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+          <script src="<?php echo WEBFILES ?>js/html5shiv.min.js"></script>
+          <script src="<?php echo WEBFILES ?>js/respond.min.js"></script>
+        <![endif]-->
+
+
+        <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+        <script src="<?php echo WEBFILES ?>js/ie10-viewport-bug-workaround.js"></script>
+        <script src="<?php echo WEBFILES ?>js/ie-emulation-modes-warning.js"></script>
+    </head>
+    <!-- NAVBAR
+    ================================================== -->
+    <body>
+        <div class="navbar-wrapper">
+            <div class="container">
+                <nav class="navbar navbar-static-top">
+                    <div class="container">
+
+                    </div>
+                </nav>
+
+            </div>
+        </div>
+
+        <link href="<?php echo WEBFILES ?>css/login.css" rel="stylesheet">
+        <div class="container">
+            <div id="main" class="contato-mail">
+                <div id="logo" class="logo">
+                    <img src="<?php echo WEBFILES ?>/img/logo.png" />
+                </div>
+
+
+
+                <div class="form-contato" id="form-contato">
+                    <form class="frmResetar" id="frmResetar" >
+
+                        <label for="basic-url">&nbsp;</label>
+
+                        <!--E-mail-->
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-addon" id="sizing-addon1"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></span>
+                            <input type="email" value="<?php echo $view_email; ?>" disabled autocomplete="off" required name="email" id="email" class="form-control" placeholder="Seu E-mail" aria-describedby="sizing-addon1">
+                            <input type="hidden" value="<?php echo $view_recover_key; ?>" id="recover_key" name="recover_key" />
+                        </div>
+
+                        <!--Senha-->
+                        <label for="basic-url">&nbsp;</label>
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-addon" id="sizing-addon1"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span></span>
+                            <input type="password" autocomplete="off" value="" required name="password" id="password" class="form-control" placeholder="Digite sua nova senha" aria-describedby="sizing-addon1">
+                        </div>
+
+                        <!--Confirma-->
+                        <label for="basic-url">&nbsp;</label>
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-addon" id="sizing-addon1"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span></span>
+                            <input type="password" autocomplete="off" value="" required name="password1" id="password1" class="form-control" placeholder="Confirme sua nova senha" aria-describedby="sizing-addon1">
+                        </div>
+
+                        <label for="basic-url">&nbsp;</label>
+                        <div >
+                            <button type="submit" id="reset" class="btn btn-default btn-lg" data-loading-text="Carregando ...">
+                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Alterar senha
+                            </button>
+                            <button type="button" id="cancelar" class="btn btn-default btn-lg" data-loading-text="Carregando ...">
+                                <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span> Cancelar
+                            </button>
+                        </div>
+                        <div class="modal fade" id="myModal2" role="dialog">
+                            <div class="modal-dialog">
+
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title"><?php echo TITLE ?></h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p id="texto"></p>
+                                        <h5>A senha deve ter pelo menos 8 dígitos letras maiusculas e minusculas, número e caracter especial</h5>
+                                        <p>Tente novamente</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="modal fade" id="myModal" role="dialog">
+                            <div class="modal-dialog">
+
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title"><?php echo TITLE ?></h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Senha alterada com sucesso!</p>
+                                        <p></p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" id="fecha" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </form>
+
+
+                </div>
+            </div>
+
+        </div>
+        <script src="<?php echo WEBFILES ?>js/validadePass.js"></script>
+        <script src="<?php echo WEBFILES ?>js/formulario.js"></script>
+    </body>
+</html>

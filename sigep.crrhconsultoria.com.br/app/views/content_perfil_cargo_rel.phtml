@@ -1,0 +1,55 @@
+<div id="page-wrapper">
+    <form class="frmSave" id="frmSave" autocomplete="off" >
+        <div class="row">
+            <div class="col-lg-12" >
+                <h1 class="page-header">Perfil de Cargos</h1>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-body" >
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Cargo*</label>
+                            <select class="form-control" onkeyup="validade(this)" onblur="validade(this)" autocomplete="off" name="selCargo" id="selCargo" >
+                                <option selected value="">Selecione</option>
+                                <?php
+                                foreach ($view_perfil as $key => $value) {
+                                    echo '
+                                        <option value="' . $value["id"] . '">' . $value["descricao_formatado"] . '</option>
+                                    ';
+                                }
+                                ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Saída</label><br />
+                            <label class="radio-inline">
+                                <input type="radio" required name="radSaida" id="radSaida" checked value="1" >Tela
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" required name="radSaida" id="radSaida" value="0">PDF
+                            </label>
+                            <!--                            <label class="radio-inline">
+                                                            <input type="radio" required name="radSaida" id="radSaida" value="2">Excel
+                                                        </label>-->
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <button type="button" id="btnGerarRel" class="btn btn-default " >
+                            <span class="fa fa-list-alt" aria-hidden="true"></span> Gerar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="resultado"></div>
+    </form>
+</div>
+
+<script src="<?php echo WEBFILES ?>js/perfil_cargo.js"></script>
+<script src="<?php echo WEBFILES ?>js/scripts.js"></script>

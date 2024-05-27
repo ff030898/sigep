@@ -1,0 +1,59 @@
+<div id="page-wrapper">
+    <form class="frmSave" id="frmSave" autocomplete="off" >
+        <div class="row">
+            <div class="col-lg-8" >
+                <h1 class="page-header">Tipos de Habilidades</h1>
+            </div>
+            <div class="col-lg-4 botoes_menu" >
+                <button type="button" id="edit" class="btn btn-default page-header " >
+                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Salvar
+                </button>
+
+                <button type="button" id="close" class="btn btn-default page-header " >
+                    <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span> Cancelar
+                </button>
+            </div>
+        </div>
+        <input type="hidden" name="txtID" id="txtID" value="<?php echo $view_indicadores_quali["id"] ?>" >
+        <div class="panel panel-default">
+            <div class="panel-body" >
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Descrição*</label>
+                            <input class="form-control" onkeyup="validade(this)" onblur="validade(this)" value="<?php echo $view_indicadores_quali["descricao"] ?>" autocomplete="off" name="txtDescricao" id="txtDescricao" maxlength="250" required>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Situação</label>
+                            <label class="radio-inline">
+                                <input type="radio"  name="radStatus" id="radStatus" value="1" >Ativo
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio"  name="radStatus" id="radStatus" value="0">Inativo
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label>Conceito</label>
+                            <textarea class="form-control" name="txtConceito" id="txtConceito" rows="6"><?php echo $view_indicadores_quali["conceito"] ?></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<script src="<?php echo WEBFILES ?>js/indicadores_quali.js?<?php echo filemtime($_SERVER["DOCUMENT_ROOT"] . "/webfiles/js/indicadores_quali.js"); ?>"></script>
+<script src="<?php echo WEBFILES ?>js/scripts.js?<?php echo filemtime($_SERVER["DOCUMENT_ROOT"] . "/webfiles/js/scripts.js"); ?>"></script>
+
+<script type="text/javascript">
+                                window.onload = function () {
+                                    $('input:radio[name="radStatus"][value="<?php echo $view_indicadores_quali["status"]; ?>"]').prop('checked', true);
+                                    $('#txtDescricao').focus();
+                                }
+</script>

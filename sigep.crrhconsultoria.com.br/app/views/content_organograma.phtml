@@ -1,0 +1,76 @@
+<link href="<?php echo WEBFILES ?>css/orgchart.css" rel="stylesheet">
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-10" >
+            <h1 class="page-header">Organograma</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="container">
+            <ul id="tree-data" style="display:none">
+                <li>
+                    Empresa
+                    <ul>
+                        <li>
+                            ADMINISTRATIVA<br />
+                            (unidade)
+                            <ul>
+                                <li>
+                                    BACKOFFICE<br />
+                                    (área)
+                                    <ul>
+                                        <li>
+                                            TECNOLOGIA DA INFORMAÇÃO<br />
+                                            (setor)
+                                            <ul>
+                                                <li>
+                                                    TI
+                                                    (Ambiente)
+                                                    <ul>
+                                                        <li>
+                                                            DESENVOLVIMENTO<br />
+                                                            (celula)
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            TESTE<br />
+                            (unidade)
+                            <ul>
+                                <li>
+                                    TESTEF F<br />
+                                    (área)
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            VENDA<br />
+                            (unidade)
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+            <div id="tree-view"></div>
+        </div>
+    </div>
+</div>
+
+<script src="<?php echo WEBFILES ?>js/orgchart.js"></script>
+<!--<script src="<?php echo WEBFILES ?>js/ambiente.js"></script>-->
+<script src="<?php echo WEBFILES ?>js/scripts.js"></script>
+
+<script>
+    $(document).ready(function () {
+        // create a tree
+        $("#tree-data").jOrgChart({
+            chartElement: $("#tree-view")
+        });
+    });
+</script>

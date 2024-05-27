@@ -1,0 +1,540 @@
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-8" >
+            <h1 class="page-header">Pessoas</h1>
+        </div>
+        <div class="col-lg-4 botoes_menu" >
+            <button type="button" id="edit" class="btn btn-default page-header " >
+                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Salvar
+            </button>
+            <button type="button" id="close" class="btn btn-default page-header " >
+                <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span> Cancelar
+            </button>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="tabs-content">
+            <div class="tabs-menu clearfix">
+                <ul>
+                    <li><a class="active-tab-menu" href="#" data-tab="tab1">Cadastral</a></li>
+                    <li><a href="#" data-tab="tab2">Documentos</a></li>
+                    <li><a href="#" data-tab="tab3">Endereço</a></li>
+                    <li><a href="#" data-tab="tab4">Tipo Físico</a></li>
+                    <li><a href="#" data-tab="tab5">Cert. Civil</a></li>
+                    <li><a href="#" data-tab="tab7">Observações</a></li>
+                </ul>
+            </div>
+            <input type="hidden" name="txtID" id="txtID" value="<?php echo $view_pessoa["id"] ?>" />
+            <div class="tab1 tabs first-tab">
+                <div class="panel-body" >
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Nome*</label>
+                                <input class="form-control" onkeyup="validade(this)" onblur="validade(this)" autocomplete="off" name="txtNome" id="txtNome" maxlength="200" value="<?php echo $view_pessoa["nome"] ?>">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Data nascimento*</label>
+                                <div class="form-group input-group">
+                                    <input autocomplete="off" onkeyup="validade(this)" onblur="validade(this)" class="form-control input-group-sm data" maxlength="10" name="txtDataNascimento" id="txtDataNascimento" data-mask="00/00/0000" placeholder="00/00/0000" maxlength="10" value="<?php echo implode("/", array_reverse(explode("-", $view_pessoa["dt_nascimento"]))) ?>" >
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" id="btnDataNasci" name="btnDataNasci" type="button"><i class="fa fa-calendar"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Sexo*</label>
+                                <select class="form-control" autocomplete="off" onkeyup="validade(this)" onblur="validade(this)" name="selSexo" id="selSexo" >
+                                    <option value="M">Masculino</option>
+                                    <option value="F">Feminino</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>UF nascimento*</label>
+                                <select class="form-control" onkeyup="validade(this)" onblur="validade(this)" id="selUfNasc" name="selUfNasc"></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Naturalidade*</label>
+                                <select class="form-control" onkeyup="validade(this)" onblur="validade(this)" onkeyup="validade(this)" onblur="validade(this)"  id="selCidadeNasc" name="selCidadeNasc"></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Grau instrução*</label>
+                                <select class="form-control" onkeyup="validade(this)" onblur="validade(this)" autocomplete="off" name="selGrauInst" id="selGrauInst" >
+                                    <option value="1">Analfabeto</option>
+                                    <option value="6">Primario Incompleto (até 4ª série)</option>
+                                    <option value="11">Primario Completo (até 4ª série)</option>
+                                    <option value="16">Ginasial Incompleto  (até 8ª série)</option>
+                                    <option value="21">Ginasial Completo  (até 8ª série)</option>
+                                    <option value="26">Colegial Incompleto (até 3ª ano)</option>
+                                    <option value="31">Colegial Completo (até 3ª ano)</option>
+                                    <option value="36">Superior Incompleto</option>
+                                    <option value="41">Superior Completo</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Estado civil*</label>
+                                <select class="form-control" onkeyup="validade(this)" onblur="validade(this)" autocomplete="off" name="selEstadoCivil" id="selEstadoCivil" >
+                                    <option value="1">Casado</option>
+                                    <option selected value="2">Solteiro</option>
+                                    <option value="3">Desquitado</option>
+                                    <option value="4">Divorciado</option>
+                                    <option value="5">Viúvo</option>
+                                    <option value="6">Separado Judicialmente</option>
+                                    <option value="7">Outros</option>
+                                    <option value="8">União Estável</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Nome pai</label>
+                                <input class="form-control" autocomplete="off" name="txtNomePai" id="txtNomePai" maxlength="200" value="<?php echo $view_pessoa["nome_pai"] ?>">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Nome mãe*</label>
+                                <input class="form-control" onkeyup="validade(this)" onblur="validade(this)" autocomplete="off" name="txtNomeMae" id="txtNomeMae" maxlength="200" value="<?php echo $view_pessoa["nome_mae"] ?>">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Situação</label>
+                                <label class="radio-inline">
+                                    <input type="radio"  name="radStatus" id="radStatus" value="1" >Ativo
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio"  name="radStatus" id="radStatus" value="2">Inativo
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab2 tabs">
+                <div class="panel-body" >
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Identidade*</label>
+                                <input class="form-control" onkeyup="validade(this)" onblur="validade(this)" autocomplete="off" name="txtIndentidade" id="txtIndentidade" maxlength="15" value="<?php echo $view_pessoa["identidade"] ?>">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Orgão emissor</label>
+                                <input class="form-control" autocomplete="off" name="txtOrgEmissor" id="txtOrgEmissor" maxlength="15" value="<?php echo $view_pessoa["orgao_emissao"] ?>">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>UF emissão</label>
+                                <select class="form-control"  id="selUfEmissao" name="selUfEmissao"></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Data emissão identidade</label>
+                                <div class="form-group input-group">
+                                    <input autocomplete="off" class="form-control input-group-sm data" maxlength="10" name="txtDataIdentidade" id="txtDataIdentidade" data-mask="00/00/0000" placeholder="00/00/0000" maxlength="10" value="<?php echo implode("/", array_reverse(explode("-", $view_pessoa["dt_emissao"]))) ?>" >
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" id="btnDataIdenti" name="btnDataIdenti" type="button"><i class="fa fa-calendar"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>CPF*</label>
+                                <input class="form-control" onkeyup="validade(this)" onblur="validade(this)" autocomplete="off" data-mask="000.000.000-00" placeholder="000.000.000-00" name="txtCPF" id="txtCPF" maxlength="14" value="<?php echo $view_pessoa["cpf"] ?>">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Cartão nacional saúde</label>
+                                <input class="form-control" autocomplete="off" name="txtCartSaude" id="txtCartSaude" data-mask="000 0000 0000 0000" placeholder="000 0000 0000 0000" maxlength="18" value="<?php echo $view_pessoa["cartao_sus"] ?>">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>NIS</label>
+                                <input class="form-control" autocomplete="off" name="txtNis" id="txtNis" data-mask="000000000000000" placeholder="000000000000000" maxlength="18" value="<?php echo $view_pessoa["nis"] ?>">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- .tab2 -->
+
+            <div class="tab3 tabs">
+                <div class="panel-body" >
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>CEP*</label>
+                                <input class="form-control" onkeyup="validade(this)" onblur="pesquisacep(this.value);" autocomplete="off" name="txtCEP" id="txtCEP"  data-mask="00.000-000" placeholder="00.000-000" maxlength="10" value="<?php echo $view_pessoa["cep"] ?>">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Número*</label>
+                                <input class="form-control" onkeyup="validade(this)" onblur="validade(this)" autocomplete="off" name="txtNumero" id="txtNumero"  maxlength="10" value="<?php echo $view_pessoa["numero"] ?>">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Endereço*</label>
+                                <input class="form-control" onkeyup="validade(this)" onblur="validade(this)" autocomplete="off" name="txtEndereco" id="txtEndereco"  maxlength="100" value="<?php echo $view_pessoa["endereco"] ?>">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Bairro*</label>
+                                <input class="form-control" onkeyup="validade(this)" onblur="validade(this)" autocomplete="off" name="txtBairro" id="txtBairro"  maxlength="100" value="<?php echo $view_pessoa["bairro"] ?>">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Estado*</label>
+                                <select class="form-control" onkeyup="validade(this)" onblur="validade(this)" id="selEstado" name="selEstado"></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Cidade*</label>
+                                <select class="form-control" onkeyup="validade(this)" onblur="validade(this)" id="selCidade" name="selCidade"></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Telefone(1)</label>
+                                <input class="form-control" autocomplete="off" maxlength="16" name="txtFone1" id="txtFone1" placeholder="(00) 0000-0000" value="<?php echo $view_pessoa["fone1"] ?>">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Telefone(2)</label>
+                                <input class="form-control" autocomplete="off" name="txtFone2" id="txtFone2" placeholder="(00) 0000-0000" maxlength="16" value="<?php echo $view_pessoa["fone2"] ?>">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>E-mail</label>
+                                <input class="form-control" autocomplete="off" name="txtEmail" id="txtEmail" maxlength="50" placeholder="exemplo@exemplo.com.br" value="<?php echo $view_pessoa["email"] ?>">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Complemento</label>
+                                <input class="form-control" autocomplete="off" name="txtComplemento" id="txtComplemento" maxlength="50" value="<?php echo $view_pessoa["complemento"] ?>">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" name="txtCidadeIBGE" id="txtCidadeIBGE" />
+            </div> <!-- .tab3 -->
+
+            <div class="tab4 tabs">
+                <div class="panel-body" >
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Cutis</label>
+                                <select class="form-control" autocomplete="off" name="selCutis" id="selCutis" >
+                                    <option value="5">Não Informada</option>
+                                    <option value="1">Branca</option>
+                                    <option value="2">Negra</option>
+                                    <option value="3">Parda</option>
+                                    <option value="4">Amarela</option>
+                                    <option value="6">Indígena</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Cabelo</label>
+                                <select class="form-control" autocomplete="off" name="selCabelo" id="selCabelo" >
+                                    <option value="1">Outros</option>
+                                    <option value="2">Castanho</option>
+                                    <option value="3">Preto</option>
+                                    <option value="4">Loiro</option>
+                                    <option value="5">Ruivo</option>
+                                    <option value="6">Grisalho</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Olhos</label>
+                                <select class="form-control" autocomplete="off" name="selOlhos" id="selOlhos" >
+                                    <option value="5">Outros</option>
+                                    <option value="1">Castanho</option>
+                                    <option value="2">Preto</option>
+                                    <option value="3">Azul</option>
+                                    <option value="4">Verde</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Estatura(cm)</label>
+                                <input class="form-control" autocomplete="off" name="txtEstatura" id="txtEstatura" maxlength="5" value="<?php echo $view_pessoa["estatura"] ?>">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Peso(kg)</label>
+                                <input class="form-control" autocomplete="off" name="txtPeso" id="txtPeso" maxlength="5" value="<?php echo $view_pessoa["peso"] ?>">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Fator RH</label>
+                                <select class="form-control" autocomplete="off" name="selFatRH" id="selFatRH" >
+                                    <option value="1">Não informado</option>
+                                    <option value="2">Negativo</option>
+                                    <option value="3">Positivo</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Tipo Sangue</label>
+                                <select class="form-control" autocomplete="off" name="selSangue" id="selSangue" >
+                                    <option value="1">Não informado</option>
+                                    <option value="2">O</option>
+                                    <option value="3">A</option>
+                                    <option value="4">B</option>
+                                    <option value="5">AB</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Portador necessidades especiais</label>
+                                <label class="radio-inline">
+                                    <input type="radio"  name="radPortNes" id="radPortNes"  value="1" >Sim
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio"  name="radPortNes" id="radPortNes" checked value="0">Não
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Doador Sangue</label>
+                                <label class="radio-inline">
+                                    <input type="radio"  name="radDoador" id="radDoador" checked value="1" >Sim
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio"  name="radDoador" id="radDoador" value="0">Não
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- .tab4 -->
+            <div class="tab5 tabs">
+                <div class="panel-body" >
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Tipo certidão</label>
+                                <select class="form-control" autocomplete="off" name="selCerti" id="selCerti" >
+                                    <option value="0">Não Informado</option>
+                                    <option value="1">Nascimento</option>
+                                    <option value="2">Casamento</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Data emissão certidão</label>
+                                <div class="form-group input-group">
+                                    <input autocomplete="off" class="form-control input-group-sm data" maxlength="10" name="txtDataCertidao" id="txtDataCertidao" data-mask="00/00/0000" placeholder="00/00/0000" maxlength="10" value="<?php echo implode("/", array_reverse(explode("-", $view_pessoa["dt_certidao"]))) ?>" >
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" id="btnDataCerti" name="btnDataCerti" type="button"><i class="fa fa-calendar"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Termo/Matricula</label>
+                                <input class="form-control" autocomplete="off" data-mask="0000000000 0000 0 00000 000 0000000 00" placeholder="0000000000 0000 0 00000 000 0000000 00" name="txtTermo" id="txtTermo"  maxlength="38" value="<?php echo $view_pessoa["termo"] ?>">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Livro certidão</label>
+                                <input class="form-control" autocomplete="off" name="txtLivro" id="txtLivro" maxlength="5" value="<?php echo $view_pessoa["livro"] ?>">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Folha certidão</label>
+                                <input class="form-control" autocomplete="off" name="txtFolha" id="txtFolha" maxlength="5" value="<?php echo $view_pessoa["folha"] ?>">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Cartório</label>
+                                <input class="form-control" autocomplete="off" name="txtCartorio" id="txtCartorio"  maxlength="100" value="<?php echo $view_pessoa["cartorio"] ?>">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>UF</label>
+                                <select class="form-control"  id="selUfCert" name="selUfCert"></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Municípo</label>
+                                <select class="form-control"  id="selCityCert" name="selCityCert"></select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab7 tabs">
+                <div class="panel-body" >
+                    <div class="row">
+                        <div class="col-sm-12" >
+                            <div class="form-group">
+                                <textarea class="form-control" name="txtObservacao" id="txtObservacao" rows="6"><?php echo $view_pessoa["observacao"] ?></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="<?php echo WEBFILES ?>js/pessoa.js?<?php echo filemtime($_SERVER["DOCUMENT_ROOT"] . "/webfiles/js/pessoa.js"); ?>"></script>
+<script src="<?php echo WEBFILES ?>js/scripts.js?<?php echo filemtime($_SERVER["DOCUMENT_ROOT"] . "/webfiles/js/scripts.js"); ?>"></script>
+<script src="<?php echo WEBFILES ?>js/jquery.mask.min.js?<?php echo filemtime($_SERVER["DOCUMENT_ROOT"] . "/webfiles/js/jquery.mask.min.js"); ?>"></script>
+<script src="<?php echo WEBFILES ?>js/cidades-estados-v0.2.js?<?php echo filemtime($_SERVER["DOCUMENT_ROOT"] . "/webfiles/js/cidades-estados-v0.2.js"); ?>"></script>
+<script src="<?php echo WEBFILES ?>js/busca_cep.js?<?php echo filemtime($_SERVER["DOCUMENT_ROOT"] . "/webfiles/js/busca_cep.js"); ?>"></script>
+
+<script type="text/javascript">
+                                    window.onload = function () {
+                                        new dgCidadesEstados(document.getElementById('selUfNasc'), document.getElementById('selCidadeNasc'), true);
+                                        new dgCidadesEstados(document.getElementById('selUfEmissao'), null, true);
+                                        new dgCidadesEstados(document.getElementById('selEstado'), document.getElementById('selCidade'), true);
+                                        new dgCidadesEstados(document.getElementById('selUfCert'), document.getElementById('selCityCert'), true);
+
+                                        $('#txtNome').focus();
+                                        var d = new Date();
+
+                                        $('input:radio[name="radStatus"][value="<?php echo $view_pessoa["status"]; ?>"]').prop('checked', true);
+                                        $('input:radio[name="radPortNes"][value="<?php echo $view_pessoa["port_especial"]; ?>"]').prop('checked', true);
+                                        $('input:radio[name="radDoador"][value="<?php echo $view_pessoa["doador_sangue"]; ?>"]').prop('checked', true);
+
+                                        $("#selEstado").val("<?php echo $view_pessoa["estado"]; ?>").change();
+                                        $("#selCidade").val("<?php echo $view_pessoa["cidade"]; ?>").change();
+                                        $("#selSexo").val("<?php echo $view_pessoa["sexo"]; ?>").change();
+                                        $("#selUfNasc").val("<?php echo $view_pessoa["uf_nascimento"]; ?>").change();
+                                        $("#selCidadeNasc").val("<?php echo $view_pessoa["naturalidade"]; ?>").change();
+                                        $("#selGrauInst").val("<?php echo $view_pessoa["grau_instrucao"]; ?>").change();
+                                        $("#selEstadoCivil").val("<?php echo $view_pessoa["estado_civil"]; ?>").change();
+                                        $("#selCutis").val("<?php echo $view_pessoa["cutis"]; ?>").change();
+                                        $("#selCabelo").val("<?php echo $view_pessoa["cabelo"]; ?>").change();
+                                        $("#selOlhos").val("<?php echo $view_pessoa["olhos"]; ?>").change();
+                                        $("#selFatRH").val("<?php echo $view_pessoa["fator_rh"]; ?>").change();
+                                        $("#selSangue").val("<?php echo $view_pessoa["tipo_sangue"]; ?>").change();
+                                        $("#selCerti").val("<?php echo $view_pessoa["tipo_certidao"]; ?>").change();
+                                        $("#selUfCert").val("<?php echo $view_pessoa["uf_certidao"]; ?>").change();
+                                        $("#selCityCert").val("<?php echo $view_pessoa["cidade_certidao"]; ?>").change();
+
+                                        $("#selUfEmissao").val("<?php echo $view_pessoa["uf_emissao"]; ?>").change();
+
+                                    }
+
+                                    var SPMaskBehavior = function (val) {
+                                        return val.replace(/\D/g, '').length === 11 ? '(00) 0 0000-0000' : '(00) 0000-00009';
+                                    },
+                                            spOptions = {
+                                                onKeyPress: function (val, e, field, options) {
+                                                    field.mask(SPMaskBehavior.apply({}, arguments), options);
+                                                }
+                                            };
+                                    $('#txtFone1').mask(SPMaskBehavior, spOptions);
+                                    $('#txtFone2').mask(SPMaskBehavior, spOptions);
+
+                                    $(function () {
+                                        $(".data").datepicker({
+                                            changeMonth: true,
+                                            changeYear: true,
+                                            dateFormat: 'dd/mm/yy',
+                                            dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'],
+                                            dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D'],
+                                            dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
+                                            monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+                                            monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez']
+                                        });
+                                    });
+
+
+
+
+</script>

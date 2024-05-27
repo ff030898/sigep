@@ -1,0 +1,65 @@
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-11" >
+            <h1 class="page-header">Avaliação</h1>
+        </div>
+        <div class="col-lg-1 botoes_menu" >
+            <button type="button" id="info" class="btn btn-circle btn-default page-header " >
+                <span class="glyphicon glyphicon-info-sign text-success" aria-hidden="true"></span>
+            </button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="dataTable_wrapper">
+                <table width="100%" class="table table-striped table-bordered table-hover" id="avaliacao_lista">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Cargo</th>
+                            <th>Próxima Avaliação</th>
+                            <th style="width: 7%">Situação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        foreach ($view_funcionarios as $value) {
+                            echo '
+                                    <tr class="tr_table" onclick="abre_avaliacao(this)" id_funcionario="' . $value["id"] . '">
+                                        <td>' . $value["nome"] . '</td>
+                                        <td>' . $value["descricao_formatado"] . '</td>
+                                        <td>' . $value["data_avaliacao"] . '</td>
+                                        <td>' . $value["status"] . '</td>
+                                    </tr>
+                             ';
+                        }
+                        ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ModalInfo" role="dialog">
+    <div class="modal-dialog modal-lg" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><?php echo TITLE ?></h4>
+            </div>
+            <div class="modal-body" >
+                <p>O módulo de Avaliação de Desempenho é uma ferramenta que permite avaliar e mensurar, de modo objetivo e sistematizado, como cada colaborador está desempenhando o seu papel dentro da Instituição ou Empresa e, o quanto se está ou não, correspondendo ao que ela espera que seja realizado na função que ocupa. Nosso objetivo é mapear resultados, visando a orientação de ações e Programas de Desenvolvimento e Treinamento.</p>
+                <p>Assim sendo, seja profissional ao avaliar seus subordinados.</p>
+                <p>A avaliação de desempenho não tem caráter pessoal, mas sim de avaliar com objetividade o comportamento profissional dos avaliados no ambiente de trabalho.</p>
+                <p>Seja sincero e imparcial.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="<?php echo WEBFILES ?>js/avaliacao.js?<?php echo filemtime($_SERVER["DOCUMENT_ROOT"] . "/webfiles/js/avaliacao.js"); ?>"></script>
+<script src="<?php echo WEBFILES ?>js/scripts.js?<?php echo filemtime($_SERVER["DOCUMENT_ROOT"] . "/webfiles/js/scripts.js"); ?>"></script>

@@ -1,0 +1,101 @@
+<div id="page-wrapper">
+    <form class="frmSave" id="frmSave" autocomplete="off" >
+        <div class="row">
+            <div class="col-lg-8" >
+                <h1 class="page-header">Restrições</h1>
+            </div>
+            <div class="col-lg-4 botoes_menu" >
+                <button type="button" id="save" class="btn btn-default page-header " >
+                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Salvar
+                </button>
+
+                <button type="button" id="close" class="btn btn-default page-header " >
+                    <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span> Cancelar
+                </button>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <div class="panel panel-default">
+            <!-- /.panel-heading -->
+            <div class="panel-body" >
+                <div class="row">
+                    <div class="col-sm-6" >
+                        <div class="form-group">
+                            <label>Nome</label>
+                            <input autocomplete="off" onkeyup="validade(this)" onblur="validade(this)" class="form-control input-group-sm" maxlength="15" name="txtNome" id="txtNome" >
+<!--                            <p class="help-block">Nome abreviado do cliente para rápida consulta.</p>-->
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6" >
+                        <div class="form-group">
+                            <label>Dias da semana</label><br />
+                            <label class="checkbox-inline">
+                                <input type="checkbox" id="chkSeg" value="1" checked name="chkSeg" >Seg
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="checkbox" id="chkTer" value="1" checked name="chkTer">Ter
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="checkbox" id="chkQua" value="1" checked name="chkQua">Qua
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="checkbox" id="chkQui" value="1" checked name="chkQui">Qui
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="checkbox" id="chkSex" value="1" checked name="chkSex">Sex
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="checkbox" id="chkSab" value="1" checked name="chkSab">Sáb
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="checkbox" id="chkDom" value="1" checked name="chkDom">Dom
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label>Hora início</label>
+                            <input autocomplete="off" onkeyup="validade(this)" onblur="validade(this)" class="form-control input-group-sm" data-mask="00:00" placeholder="00:00" value="00:00" maxlength="5" name="txtHoraIni" id="txtHoraIni" >
+<!--                            <p class="help-block">Nome abreviado do cliente para rápida consulta.</p>-->
+                        </div>
+                        <div class="form-group">
+                            <label>Hora fim</label>
+                            <input autocomplete="off" onkeyup="validade(this)" onblur="validade(this)" class="form-control input-group-sm" data-mask="00:00" placeholder="00:00" value="23:59" maxlength="5" name="txtHoraFim" id="txtHoraFim" >
+<!--                            <p class="help-block">Nome abreviado do cliente para rápida consulta.</p>-->
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="myModal2" role="dialog">
+                    <div class="modal-dialog">
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title"><?php echo TITLE ?></h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group input-group">
+                                    <input type="text" class="form-control" name="txtSearch" id="txtSearch" onkeyup="showResult2(this.value)" onblur="teste()">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button"><i class="fa fa-search"></i>
+                                        </button>
+                                    </span>
+
+                                </div>
+                                <div id="livesearch" style="position: absolute; background-color: #f5f5f5;  "></div>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.panel-body -->
+            </div>
+        </div>
+    </form>
+</div>
+<script src="<?php echo WEBFILES ?>js/restricoes.js"></script>
+<script src="<?php echo WEBFILES ?>js/scripts.js"></script>
+<script src="<?php echo WEBFILES ?>js/jquery.mask.min.js"></script>

@@ -1,0 +1,343 @@
+<style type="text/css">
+    #habilidades		{ padding:0; }
+    #habilidades li	{ padding:4px 8px; color:#000; cursor:move; list-style:none; width:500px; background:blanchedalmond; margin:10px 0; border:1px solid #999; }
+</style>
+<link href="<?php echo WEBFILES ?>css/orgchart.css" rel="stylesheet">
+<div id="page-wrapper">
+    <form class="frmSave" id="frmSave" autocomplete="off" >
+        <div class="row">
+            <div class="col-lg-8" >
+                <h1 class="page-header">Cargo</h1>
+            </div>
+            <div class="col-lg-4 botoes_menu" >
+                <button type="button" id="edit" class="btn btn-default page-header " >
+                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Salvar
+                </button>
+
+                <button type="button" id="close" class="btn btn-default page-header " >
+                    <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span> Cancelar
+                </button>
+            </div>
+        </div>
+        <input type="hidden" name="txtID" id="txtID" value="<?php echo $view_cargo["id"] ?>" />
+        <div class="panel panel-default">
+
+            <div class="tabs-content">
+                <div class="tabs-menu clearfix">
+                    <ul>
+                        <li><a class="active-tab-menu" href="#" data-tab="tab1">Cargo</a></li>
+                        <li><a href="#" data-tab="tab_lotacao">Lotação</a></li>
+                        <li><a href="#" data-tab="tab2">Requisitos de Seleção</a></li>
+                        <li><a href="#" data-tab="tab4">Habilidades</a></li>
+                        <li><a href="#" data-tab="tab5">Observações</a></li>
+                    </ul>
+                </div> <!-- tabs-menu -->
+
+                <!-- Cargo -->
+                <div class="tab1 tabs first-tab">
+                    <div class="panel-body" >
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label>Tipo*</label>
+                                    <select class="form-control" autocomplete="off" name="selTipo" id="selTipo" >
+                                        <option selected value="">Selecione</option>
+                                        <option value="1">AUXILIAR</option>
+                                        <option value="2">ASSISTENTE/TÉCNICO</option>
+                                        <option value="3">LIDER</option>
+                                        <option value="4">SUPERVISOR</option>
+                                        <option value="5">ANALISTA</option>
+                                        <option value="6">COORDENADOR</option>
+                                        <option value="7">GERENTE</option>
+                                        <option value="8">SUPERINTENDENTE</option>
+                                        <option value="9">DIRETOR</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <label>Descrição*</label>
+                                <div class="form-group input-group">
+                                    <input autocomplete="off" onkeyup="showCargo()" onblur="validade(this)" class="form-control input-group-sm" name="txtDescricao" id="txtDescricao" value="<?php echo $view_cargo["descricao"] ?>" maxlength="250" required>
+                                    <div  id="livesearchcargo" style="position: absolute; margin-top: 40px; z-index: 9999; background-color: #FFFFFF; width: 100%  "></div>
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" onclick="showCargo()" type="button"><i class="fa fa-search"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label>Subtipo*</label>
+                                    <select class="form-control" autocomplete="off" name="selSubTipo" id="selSubTipo" >
+                                        <option selected value="">Selecione</option>
+                                        <option value="1">JUNIOR</option>
+                                        <option value="2">PLENO</option>
+                                        <option value="3">SENIOR</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <label>CBO*</label>
+                                <div class="form-group input-group">
+                                    <input autocomplete="off" onkeyup="showCBO()" onblur="validade(this)" class="form-control input-group-sm" maxlength="150" value="<?php echo $view_cargo["id_cbo"] . "-" . $view_cargo["codigo"] . "-" . $view_cargo["titulo"] ?>" name="txtCBO" id="txtCBO"  >
+                                    <div  id="livesearch" style="position: absolute; margin-top: 40px; z-index: 9999; background-color: #FFFFFF; width: 100%  "></div>
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" onclick="showCBO()" type="button"><i class="fa fa-search"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label>Cargo de ascenção*</label>
+                                    <select class="form-control" autocomplete="off" name="selAscencao" id="selAscencao" >
+                                        <option selected value="">Selecione</option>
+                                        <option value="0">NENHUM</option>
+                                        <?php
+                                        foreach ($view_ascencao as $key => $value) {
+                                            if ($view_cargo["id"] != $value["id"]) {
+                                                echo '
+                                        <option value="' . $value["id"] . '">' . $value["ascencao"] . '</option>
+                                    ';
+                                            }
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label>Natureza Ocupacional*</label>
+                                    <select class="form-control" autocomplete="off" name="selNatOcupacional" id="selNatOcupacional" onblur="setNatOcupacional()" onclick="setNatOcupacional()" >
+                                        <option selected value="">Selecione</option>
+                                        <?php
+                                        foreach ($view_nat_ocupacional as $key => $value) {
+                                            echo '
+                                        <option value="' . $value["id"] . '">' . $value["descricao"] . '</option>
+                                    ';
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-3" >
+                                <div class="form-group">
+                                    <label>Faixa salarial mínima (R$)*</label>
+                                    <input class="form-control" placeholder="0,00" autocomplete="off" value="<?php echo $view_cargo["sal_min"] ?>" name="txtSalMin" id="txtSalMin" maxlength="100">
+                                </div>
+                            </div>
+                            <div class="col-sm-3" >
+                                <div class="form-group">
+                                    <label>Faixa salarial máxima (R$)*</label>
+                                    <input class="form-control" placeholder="0,00" autocomplete="off" value="<?php echo $view_cargo["sal_max"] ?>" name="txtSalMax" id="txtSalMax" maxlength="100">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label>Grau instrução mínimo*</label>
+                                    <select class="form-control" onkeyup="validade(this)" onblur="validade(this)" autocomplete="off" name="selGrauInst" id="selGrauInst" >
+                                        <option selected value="">Selecione</option>
+                                        <option value="1">Analfabeto</option>
+                                        <option value="6">Primario Incompleto (até 4ª série)</option>
+                                        <option value="11">Primario Completo (até 4ª série)</option>
+                                        <option value="16">Ginasial Incompleto  (até 8ª série)</option>
+                                        <option value="21">Ginasial Completo  (até 8ª série)</option>
+                                        <option value="26">Colegial Incompleto (até 3ª ano)</option>
+                                        <option value="31">Colegial Completo (até 3ª ano)</option>
+                                        <option value="36">Superior Incompleto</option>
+                                        <option value="41">Superior Completo</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label>Periodiciodade Avaliação (Meses)</label>
+                                    <input type="number" class="form-control" id="txtPeriAvaliacao" onblur="validade(this)" autocomplete="of" max="99" min="1" step="1" maxlength="2" value="<?php echo $view_cargo["periodicidade_avaliacao"] ?>" />
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group ">
+                                    <label>Situação</label>
+                                    <label class="radio-inline">
+                                        <input type="radio"  name="radStatus" id="radStatus" value="1" >Ativo
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio"  name="radStatus" id="radStatus" value="0">Inativo
+                                    </label>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="tab_lotacao tabs">
+                    <div class="panel-body" >
+                        <div class="row">
+
+                            <div class="container">
+                                <ul id="tree-data" style="display:none">
+                                    <li>
+                                        Empresa
+                                        <?php
+                                        echo $view_estrutura;
+                                        ?>
+                                    </li>
+                                </ul>
+                                <div id="tree-view"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Requisitos -->
+                <div class="tab2 tabs">
+                    <div class="panel-body" >
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="panel panel-primary">
+                                    <div class="panel-body">
+                                        <?php
+                                        print_r($view_requisitos);
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Indicadores -->
+                <div class="tab4 tabs">
+                    <div class="panel-body" >
+                        <div class="row">
+                            <div class="col-sm-12" >
+                                <div class="panel panel-warning">
+                                    <div class="panel-heading">
+                                        <label>Fatoramento das Habilidades</label>
+                                    </div>
+                                    <div class="panel-body">
+                                        <center>
+                                            <ul id="habilidades">
+                                                <?php
+                                                foreach ($view_ind_qual as $key => $value) {
+                                                    echo '<li id="' . $value["id"] . '"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>' . $value["descricao"] . '</li>';
+                                                }
+                                                ?>
+                                            </ul>
+                                        </center>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Observações -->
+                <div class="tab5 tabs">
+                    <div class="panel-body" >
+                        <div class="row">
+                            <div class="col-sm-12" >
+                                <div class="form-group">
+                                    <textarea class="form-control" name="txtObservacoes" id="txtObservacoes" rows="6"><?php echo $view_cargo["observacoes"] ?></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script src="<?php echo WEBFILES ?>js/cargo.js?<?php echo filemtime($_SERVER["DOCUMENT_ROOT"] . "/webfiles/js/cargo.js"); ?>"></script>
+<script src="<?php echo WEBFILES ?>js/scripts.js?<?php echo filemtime($_SERVER["DOCUMENT_ROOT"] . "/webfiles/js/scripts.js"); ?>"></script>
+<script src="<?php echo WEBFILES ?>js/jquery.mask.min.js?<?php echo filemtime($_SERVER["DOCUMENT_ROOT"] . "/webfiles/js/jquery.mask.min.js"); ?>"></script>
+<script src="<?php echo WEBFILES ?>js/jquery.maskMoney.js?<?php echo filemtime($_SERVER["DOCUMENT_ROOT"] . "/webfiles/js/jquery.maskMoney.js"); ?>"></script>
+<script src="<?php echo WEBFILES ?>js/orgchart.js?<?php echo filemtime($_SERVER["DOCUMENT_ROOT"] . "/webfiles/js/orgchart.js"); ?>"></script>
+
+<script type="text/javascript">
+
+                                        $("#<?php echo $view_cargo["id_estrutura_organizacional"] ?>").css('background', '#337ab7');
+                                        $("#<?php echo $view_cargo["id_estrutura_organizacional"] ?>").css('color', '#fff');
+                                        id_estrutura = <?php echo $view_cargo["id_estrutura_organizacional"] ?>;
+                                        $("#tree-data").jOrgChart({
+                                            chartElement: $("#tree-view"),
+                                            nodeClicked: function (node) {
+                                                var id = $(node).attr("id");
+
+                                                if (isInt(id)) {
+                                                    id_estrutura = id;
+
+                                                    $(".estrutura_organizacional").css('background', '#FFFFFF');
+                                                    $(".estrutura_organizacional").css('color', '#000000');
+
+                                                    $(node).css('background', '#337ab7');
+                                                    $(node).css('color', '#fff');
+                                                }
+
+                                            }
+                                        });
+
+
+                                        window.onload = function () {
+                                            $('#txtSalMin').maskMoney({showSymbol: true, symbol: "", decimal: ",", thousands: ".", precision: 2});
+                                            $('#txtSalMax').maskMoney({showSymbol: true, symbol: "", decimal: ",", thousands: ".", precision: 2});
+                                            $("#selNatOcupacional").val("<?php echo $view_cargo["id_nat_ocupacional"] ?>").change();
+                                            $("#selTipo").val("<?php echo $view_cargo["tipo"] ?>").change();
+                                            $("#selSubTipo").val("<?php echo $view_cargo["subtipo"] ?>").change();
+                                            $("#selAscencao").val("<?php echo $view_cargo["id_ascencao"] ?>").change();
+                                            $("#selGrauInst").val("<?php echo $view_cargo["grau_min"] ?>").change();
+                                            $('input:radio[name="radStatus"][value="<?php echo $view_cargo["status"]; ?>"]').prop('checked', true);
+                                            $('#selTipo').focus();
+                                        };
+
+                                        $(document).ready(function () {
+
+                                            $("#addButton").click(function () {
+                                                var newTextBoxDiv = $(document.createElement("div")).attr("id", "TextBoxDiv" + counter);
+                                                newTextBoxDiv.after().html('<div class="row" id="teste"><div class="col-sm-12 input_fields_wrap"><div class="form-group "><label>' + counter + ': Indicadores Quantitativo*</label><select class="form-control" autocomplete="off" name="selIndQuantitativo' + counter + '" id="selIndQuantitativo' + counter + '" ><option selected value="">Selecione</option></select></div></div></div>');
+                                                newTextBoxDiv.appendTo("#TextBoxesGroup");
+                                                $("#selIndQuantitativo" + counter).empty();
+                                                $("#selIndQuantitativo" + counter).append(select);
+                                                counter++;
+                                            });
+
+                                            $("#removeButton").click(function () {
+                                                if (counter == 2) {
+                                                    return false;
+                                                }
+                                                counter--;
+                                                $("#TextBoxDiv" + counter).remove();
+                                            });
+                                        });
+
+
+<?php
+$indicadores_qualitativos = "";
+
+foreach ($view_ind_qual as $key => $value) {
+    if ($indicadores_qualitativos == "") {
+        if ($value["id_indicador_mesmo"] != "") {
+            $indicadores_qualitativos = $value["id_indicador_mesmo"];
+        } else {
+            $indicadores_qualitativos = $value["id"];
+        }
+    } else {
+        if ($value["id_indicador_mesmo"] != "") {
+            $indicadores_qualitativos .= "," . $value["id_indicador_mesmo"];
+        } else {
+            $indicadores_qualitativos .= "," . $value["id"];
+        }
+    }
+}
+
+echo "habilidades = '" . $indicadores_qualitativos . "';";
+?>
+
+</script>

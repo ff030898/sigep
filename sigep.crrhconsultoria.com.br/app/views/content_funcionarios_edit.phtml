@@ -1,0 +1,243 @@
+<div id="page-wrapper">
+    <form class="frmSave" id="frmSave" autocomplete="off" >
+        <div class="row">
+            <div class="col-lg-8" >
+                <h1 class="page-header">Funcionários</h1>
+            </div>
+            <div class="col-lg-4 botoes_menu" >
+                <button type="button" id="edit" class="btn btn-default page-header " >
+                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Salvar
+                </button>
+
+                <button type="button" id="close" class="btn btn-default page-header " >
+                    <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span> Cancelar
+                </button>
+            </div>
+        </div>
+        <input type="hidden" name="txtID" id="txtID" value="<?php echo $view_funcionarios["id"] ?>" />
+        <div class="panel panel-default">
+            <div class="panel-body" >
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label>Pessoa*</label>
+                        <div class="form-group input-group">
+                            <input autocomplete="off" disabled value="<?php echo $view_funcionarios["pessoa"] ?>" onkeyup="showPessoa()" onblur="validade(this)" class="form-control input-group-sm" name="txtPessoa" id="txtPessoa" maxlength="250" required>
+                            <div  id="livesearPessoa" style="position: absolute; margin-top: 40px; z-index: 9999; background-color: #FFFFFF; width: 100%  "></div>
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" disabled type="button"><i class="fa fa-search"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tabs-content">
+                <div class="tabs-menu clearfix">
+                    <ul>
+                        <li><a class="active-tab-menu" href="#" data-tab="tab1">Cadastral</a></li>
+                        <li><a href="#" data-tab="tab2">Dados</a></li>
+                        <li><a href="#" data-tab="tab4">Observações</a></li>
+                    </ul>
+                </div>
+                <div class="tab1 tabs first-tab">
+                    <div class="panel-body" >
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Cargo*</label>
+                                    <select class="form-control" autocomplete="off" onkeyup="validade(this)" onblur="validade(this)" name="selCargo" id="selCargo" >
+                                        <option selected value="">Selecione</option>
+                                        <?php
+                                        foreach ($view_cargo as $key => $value) {
+                                            echo '
+                                                <option value="' . $value["id"] . '">' . $value["descricao_formatado"] . ' </option>
+                                        ';
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Categoria salarial</label>
+                                    <select class="form-control" autocomplete="off" onkeyup="validade(this)" onblur="validade(this)" name="selCat_sal" id="selCat_sal" >
+                                        <option value="1">Mensal</option>
+                                        <option value="2">Horista</option>
+                                        <option value="3">Semanal</option>
+                                        <option value="4">Quinzenal</option>
+                                        <option value="5">Tarefeiro</option>
+                                        <option value="6">Diarista</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Tipo funcionário</label>
+                                    <select class="form-control" autocomplete="off" onkeyup="validade(this)" onblur="validade(this)" name="selTipo_fun" id="selTipo_fun" >
+                                        <option value="1">Colaborador</option>
+                                        <option value="2">Estagiário</option>
+                                        <option value="3">Aposentado</option>
+                                        <option value="4">Temporário</option>
+                                        <option value="5">Menor aprendiz</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Jornada de Trabalho*</label>
+                                    <select class="form-control" autocomplete="off" onkeyup="validade(this)" onblur="validade(this)" name="selJornada" id="selJornada" >
+                                        <option selected value="">Selecione</option>
+                                        <?php
+                                        foreach ($view_jornada as $key => $value) {
+                                            echo '
+                                                <option value="' . $value["id"] . '">' . $value["descricao"] . ' ' . $value["horas"] . ' horas</option>
+                                        ';
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Turno*</label>
+                                    <select class="form-control" autocomplete="off" onkeyup="validade(this)" onblur="validade(this)" name="selTurno" id="selTurno" >
+                                        <option value="">Selecione</option>
+                                        <option value="1">Manhã</option>
+                                        <option value="2">Tarde</option>
+                                        <option value="3">Noite</option>
+                                        <option selected value="4">Manhã + Tarde</option>
+                                        <option value="5">Tarde + Noite</option>
+                                        <option value="6">Noite + Manhã</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <label>Hora Início*</label>
+                                    <input class="form-control" value="<?php echo $view_funcionarios["hora_inicio"] ?>" autocomplete="off" onkeyup="validade(this)" onblur="validade(this)" name="txtHoraIni" id="txtHoraIni" data-mask="00:00" placeholder="00:00" maxlength="5" >
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <label>Hora Fim*</label>
+                                    <input class="form-control" value="<?php echo $view_funcionarios["hora_fim"] ?>" autocomplete="off" onkeyup="validade(this)" onblur="validade(this)" name="txtHoraFim" id="txtHoraFim" data-mask="00:00" placeholder="00:00" maxlength="5" >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Data admissão*</label>
+                                    <input class="form-control" value="<?php echo $view_funcionarios["dt_admissao"] ?>"  autocomplete="off" name="txtDataAdmissao" id="txtDataAdmissao" onkeyup="validade(this)" onblur="validade(this)" data-mask="00/00/0000" placeholder="00/00/0000" maxlength="10" >
+                                </div>
+                            </div>
+                            <div class="col-sm-4" >
+                                <div class="form-group">
+                                    <label>Salário (R$)*</label>
+                                    <input class="form-control" placeholder="0,00" autocomplete="off" value="<?php echo $view_funcionarios["salario"] ?>" name="txtSalario" id="txtSalario" maxlength="100">
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Situação</label>
+                                    <label class="radio-inline">
+                                        <input type="radio"  name="radStatus" id="radStatus" checked value="1" >Ativo
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio"  name="radStatus" id="radStatus" value="0">Inativo
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio"  name="radStatus" id="radStatus" value="3">Desligado
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- .tab1 -->
+
+                <div class="tab2 tabs">
+                    <div class="panel-body" >
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Número CTPS</label>
+                                    <input class="form-control" value="<?php echo $view_funcionarios["num_ctps"] ?>" autocomplete="off" name="txtCtps_num" id="txtCtps_num" data-mask="000.00000.00-0" placeholder="000.00000.00-0" maxlength="12">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Série</label>
+                                    <input class="form-control" value="<?php echo $view_funcionarios["serie_ctps"] ?>" autocomplete="off" name="txtCtps_serie" id="txtCtps_serie" maxlength="5" data-mask="000-0" placeholder="000-0" >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>UF emissão</label>
+                                    <select class="form-control"  id="selCtps_uf" name="selCtps_uf"></select>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Data CTPS</label>
+                                    <input class="form-control" value="<?php echo $view_funcionarios["data_ctps"] ?>" autocomplete="off" name="txtCtps_data" id="txtCtps_data" data-mask="00/00/0000" placeholder="00/00/0000" maxlength="10" >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6" >
+                                <div class="form-group">
+                                    <label>PIS</label>
+                                    <input class="form-control" value="<?php echo $view_funcionarios["pis"] ?>" autocomplete="off" data-mask="000.00000.00-0" placeholder="000.00000.00-0" name="txtPis" id="txtPis" maxlength="14">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- .tab2 -->
+
+                <div class="tab4 tabs">
+                    <div class="panel-body" >
+                        <div class="row">
+                            <div class="col-sm-12" >
+                                <div class="form-group">
+                                    <textarea class="form-control" name="txtObservacao" id="txtObservacao" rows="6"><?php echo $view_funcionarios["observacoes"] ?></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </form>
+</div>
+<select class="form-control" hidden id="selCityCert" name="selCityCert"></select>
+
+<script src="<?php echo WEBFILES ?>js/scripts.js?<?php echo filemtime($_SERVER["DOCUMENT_ROOT"] . "/webfiles/js/scripts.js"); ?>"></script>
+<script src="<?php echo WEBFILES ?>js/funcionarios.js?<?php echo filemtime($_SERVER["DOCUMENT_ROOT"] . "/webfiles/js/funcionarios.js"); ?>"></script>
+<script src="<?php echo WEBFILES ?>js/jquery.mask.min.js?<?php echo filemtime($_SERVER["DOCUMENT_ROOT"] . "/webfiles/js/jquery.mask.min.js"); ?>"></script>
+<script src="<?php echo WEBFILES ?>js/jquery.maskMoney.js?<?php echo filemtime($_SERVER["DOCUMENT_ROOT"] . "/webfiles/js/jquery.maskMoney.js"); ?>"></script>
+<script src="<?php echo WEBFILES ?>js/cidades-estados-v0.2.js?<?php echo filemtime($_SERVER["DOCUMENT_ROOT"] . "/webfiles/js/cidades-estados-v0.2.js"); ?>"></script>
+
+<script type="text/javascript">
+                                        window.onload = function () {
+                                            $('#txtSalario').maskMoney({showSymbol: true, symbol: "", decimal: ",", thousands: ".", precision: 2});
+                                            $("#selCargo").val("<?php echo $view_funcionarios["id_cargo"] ?>").change();
+                                            $("#selCat_sal").val("<?php echo $view_funcionarios["cat_salarial"] ?>").change();
+                                            $("#selTipo_fun").val("<?php echo $view_funcionarios["tipo_funcionario"] ?>").change();
+                                            $("#selJornada").val("<?php echo $view_funcionarios["id_jornada_trabalho"] ?>").change();
+                                            $("#selTurno").val("<?php echo $view_funcionarios["turno"] ?>").change();
+                                            $('input:radio[name="radStatus"][value="<?php echo $view_funcionarios["status"]; ?>"]').prop('checked', true);
+
+
+                                            new dgCidadesEstados(document.getElementById('selCtps_uf'), document.getElementById('selCityCert'), true);
+                                            $("#selCtps_uf").val("<?php echo $view_funcionarios["uf_ctps"] ?>").change();
+                                            $('#selCargo').focus();
+
+                                        };
+
+</script>

@@ -1,0 +1,209 @@
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-2" >
+            <h1 class="page-header">Avaliar</h1>
+        </div>
+        <div class="col-lg-6">
+            <h3><?php echo $view_funcionario["dados"]["nome"] ?></h3>
+            <h4><?php echo $view_funcionario["dados"]["cargo"] ?></h4>
+        </div>
+        <div class="col-lg-4 botoes_menu" >
+            <button type="button" id="save" class="btn btn-default page-header " >
+                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Salvar
+            </button>
+
+            <button type="button" id="close" class="btn btn-default page-header " >
+                <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span> Cancelar
+            </button>
+        </div>
+    </div>
+
+    <input type="hidden" id="txtIdFuncionario" value="<?php echo $view_funcionario["dados"]["id_funcionario"] ?>" />
+    <input type="hidden" id="txtIdPessoa" value="<?php echo $view_funcionario["dados"]["id_pessoa"] ?>" />
+    <input type="hidden" id="txtIdCargo" value="<?php echo $view_funcionario["dados"]["id_cargo"] ?>" />
+    <input type="hidden" id="txtIdPerfilCargo" value="<?php echo $view_funcionario["dados"]["id_perfil_cargo"] ?>" />
+    <div class="panel panel-default">
+        <div class="panel-body" >
+            <div class="row">
+                <div class="col-sm-12" >
+                    <div class="tabs-content">
+                        <div class="tabs-menu clearfix">
+                            <ul>
+                                <li><a class="active-tab-menu" href="#" data-tab="tab_competencia">Competências</a></li>
+                                <li><a href="#" data-tab="tab_habilidade">Habilidades</a></li>
+                            </ul>
+                        </div>
+                        <div class="tab_competencia tabs first-tab">
+
+                            <ul class="nav nav-pills">
+                                <?php
+                                $c = 0;
+                                foreach ($view_funcionario["indicadores"] as $value) {
+                                    if ($c == 0) {
+                                        echo '<li class="active"><a href="#tab_comp_' . $value["id_indicadores_quant_tipo"] . '" data-toggle="tab" aria-expanded="true">' . $value["descricao"] . '</a></li>';
+                                        $c++;
+                                    } else {
+                                        echo '<li><a href="#tab_comp_' . $value["id_indicadores_quant_tipo"] . '" data-toggle="tab" aria-expanded="false">' . $value["descricao"] . '</a></li>';
+                                    }
+                                }
+                                ?>
+                            </ul>
+                            <br />
+                            <div class="tab-content">
+                                <?php
+                                $c = 0;
+                                foreach ($view_funcionario["indicadores"] as $value) {
+                                    echo '<div id="tab_comp_' . $value["id_indicadores_quant_tipo"] . '" class="tab-pane ' . ($c == 0 ? "active in" : "") . ' ">';
+                                    foreach ($value["sub"] as $value2) {
+                                        echo '
+                                            <div class="panel panel-primary">
+                                                <div class="panel-heading">
+                                                    <label>' . $value2["descricao"] . '</label>
+                                                </div>
+                                                <div class="panel-body">
+                                                    <div class="form-group">
+                                                        <div class="form-group ">
+                                                        ';
+                                        $c = 1;
+                                        foreach ($value2["indicador"] as $value3) {
+                                            echo '
+                                                <div class="panel panel-success">
+                                                    <div class="panel-heading">
+                                                        <label class="text-justify">' . $c . " - " . $value3["descricao"] . '</label>
+                                                </div>
+                                                <div class="panel-body">
+                                                    <div class="form-group">
+                                                        <label class="radio-inline">
+                                                            <input
+                                                                id="radValComp' . $value2["id_indicadores_quant_tipo"] . $value2["id_indicadores_quant_sub"] . $value3["id"] . '"
+                                                                type="radio"
+                                                                tipo="comp"
+                                                                name="radValComp' . $value2["id_indicadores_quant_tipo"] . $value2["id_indicadores_quant_sub"] . $value3["id"] . '"
+                                                                value="1"
+                                                                onclick="mostra_negacao(this)"
+                                                                negacao="negacao' . $value2["id_indicadores_quant_tipo"] . $value2["id_indicadores_quant_sub"] . $value3["id"] . '"
+                                                                id_indicadores_quant_tipo="' . $value2["id_indicadores_quant_tipo"] . '"
+                                                                id_indicadores_quant_sub="' . $value2["id_indicadores_quant_sub"] . '"
+                                                                id_perfil_cargo_indicadores="' . $value3["id"] . '"
+                                                                mensagem="Aba Competências, Grupo ' . $value["descricao"] . ', Opção ' . $value2["descricao"] . ', item ' . $c . '"
+                                                            /> Atende
+                                                        </label>
+                                                        <label class="radio-inline">
+                                                            <input
+                                                                id="radValComp' . $value2["id_indicadores_quant_tipo"] . $value2["id_indicadores_quant_sub"] . $value3["id"] . '"
+                                                                type="radio"
+                                                                tipo="comp"
+                                                                name="radValComp' . $value2["id_indicadores_quant_tipo"] . $value2["id_indicadores_quant_sub"] . $value3["id"] . '"
+                                                                value="0"
+                                                                onclick="mostra_negacao(this)"
+                                                                negacao="negacao' . $value2["id_indicadores_quant_tipo"] . $value2["id_indicadores_quant_sub"] . $value3["id"] . '"
+                                                                id_indicadores_quant_tipo="' . $value2["id_indicadores_quant_tipo"] . '"
+                                                                id_indicadores_quant_sub="' . $value2["id_indicadores_quant_sub"] . '"
+                                                                id_perfil_cargo_indicadores="' . $value3["id"] . '"
+                                                                mensagem="Aba Competências, Grupo ' . $value["descricao"] . ', Opção ' . $value2["descricao"] . ', item ' . $c . '"
+                                                            /> Não Atende
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-group hidden" id="negacao' . $value2["id_indicadores_quant_tipo"] . $value2["id_indicadores_quant_sub"] . $value3["id"] . '">';
+
+                                            foreach ($value2["negacao"] as $value4) {
+                                                echo '
+                                                    <label class="radio-inline " >
+                                                        <input
+                                                            id="radValComp' . $value2["id_indicadores_quant_tipo"] . $value2["id_indicadores_quant_sub"] . $value3["id"] . 'Neg"
+                                                            type="radio"
+                                                            name="radValComp' . $value2["id_indicadores_quant_tipo"] . $value2["id_indicadores_quant_sub"] . $value3["id"] . 'Neg"
+                                                            value="' . $value4["id"] . '"
+                                                            id_indicadores_quant_tipo="' . $value2["id_indicadores_quant_tipo"] . '"
+                                                            id_indicadores_quant_sub="' . $value2["id_indicadores_quant_sub"] . '"
+                                                            id_perfil_cargo_indicadores="' . $value3["id"] . '"
+                                                            id_indicadores_quant_negacao="' . $value4["id"] . '"
+                                                            mensagem="Aba Competências, Grupo ' . $value["descricao"] . ', Opção ' . $value2["descricao"] . ', item ' . $c . ', Justificativa"
+                                                        /> ' . $value4["descricao"] . '
+                                                    </label>';
+                                            }
+                                            echo '</div>
+                                            </div>
+                                            </div>';
+                                            $c++;
+                                        }
+                                        echo '
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        ';
+                                    }
+                                    echo '</div>';
+                                }
+                                ?>
+
+                            </div>
+                        </div>
+                        <div class="tab_habilidade tabs">
+                            <?php
+                            foreach ($view_funcionario["habilidades"] as $value) {
+                                echo '
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading">
+                                            <label class="text-justify">' . $value["descricao"] . '</label>
+                                            <p class="text-justify">' . $value["conceito"] . '</p>
+                                        </div>
+                                        <div class="panel-body">';
+                                $x = 1;
+                                foreach ($value["graduacao"] as $value2) {
+                                    echo '
+                                        <div class="panel panel-info">
+                                            <div class="panel-heading">
+                                                <label class="radio-inline">
+                                                    <input
+                                                        type="radio"
+                                                        tipo="habi"
+                                                        mensagem="Aba Habilidades, Opção ' . $value["descricao"] . '" id="' . $value["id"] . $value["id_indicador"] . '"
+                                                        name="' . $value["id"] . $value["id_indicador"] . '"
+                                                        value="' . $value2["id"] . '"
+                                                        id_indicadores_quali="' . $value["id_indicador"] . '"
+                                                        id_indicadores_quali_graduacao="' . $value2["id"] . '"
+                                                        intermediario="0"
+                                                    /> <b>' . $value2["descricao"] . '</b>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    ';
+                                    if ($x < 4) {
+                                        echo '
+                                            <div class="panel panel-success">
+                                                <div class="panel-heading">
+                                                    <label class="radio-inline">
+                                                        <input
+                                                            type="radio"
+                                                            tipo="habi"
+                                                            mensagem="Aba Habilidades, Opção ' . $value["descricao"] . '" id="' . $value["id"] . $value["id_indicador"] . '"
+                                                            name="' . $value["id"] . $value["id_indicador"] . '"
+                                                            value="' . $value2["id"] . '"
+                                                            id_indicadores_quali="' . $value["id_indicador"] . '"
+                                                            id_indicadores_quali_graduacao="' . $value2["id"] . '"
+                                                            intermediario="1"
+                                                        /> Intermediário ' . $x . '
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        ';
+                                    }
+                                    $x++;
+                                }
+                                echo '
+                                        </div>
+                                    </div>
+                                ';
+                            }
+                            ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="<?php echo WEBFILES ?>js/avaliacao.js?<?php echo filemtime($_SERVER["DOCUMENT_ROOT"] . "/webfiles/js/avaliacao.js"); ?>"></script>
+<script src="<?php echo WEBFILES ?>js/scripts.js?<?php echo filemtime($_SERVER["DOCUMENT_ROOT"] . "/webfiles/js/scripts.js"); ?>"></script>

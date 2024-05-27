@@ -1,0 +1,101 @@
+<div id="page-wrapper">
+    <form class="frmSave" id="frmSave" autocomplete="off" >
+        <div class="row">
+            <div class="col-lg-12" >
+                <h1 class="page-header">Relatório Clientes/Fornecedores</h1>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-body" >
+                <div class="row">
+                    <div class="col-sm-3">
+                        <label>Empresa (Opcional)</label>
+                        <div class="form-group input-group">
+                            <input autocomplete="off" class="form-control input-group-sm" name="txtEmpresa" id="txtEmpresa" >
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" id="btnSearch" name="btnSearch" type="button"><i class="fa fa-search"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Tipo</label><br />
+                            <label class="radio-inline">
+                                <input type="radio" required name="radTipo" id="radTipo" value="1" >Cliente
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" required name="radTipo" id="radTipo" value="2">Fornecedor
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" required name="radTipo" id="radTipo" checked value="3">Ambos
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label>Situação</label><br />
+                            <label class="radio-inline">
+                                <input type="radio" required name="radStatus" id="radStatus" value="1" >Ativo
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" required name="radStatus" id="radStatus" value="0">Inativo
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" required name="radStatus" id="radStatus" checked value="2">Ambos
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label>Formato</label><br />
+                            <label class="radio-inline">
+                                <input type="radio" required name="radFormato" id="radFormato" checked value="1" >Simples
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" required name="radFormato" id="radFormato" value="0">Detalhado
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label>Saída</label><br />
+                            <label class="radio-inline">
+                                <input type="radio" required name="radSaida" id="radSaida" checked value="1" >Tela
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" required name="radSaida" id="radSaida" value="0">PDF
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" required name="radSaida" id="radSaida" value="2">Excel
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <button type="button" id="search" class="btn btn-default " >
+                            <span class="fa fa-list-alt" aria-hidden="true"></span> Gerar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="resultado"></div>
+    </form>
+</div>
+<div class="modal fade" id="loading" role="dialog">
+    <div class="modal-dialog" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><?php echo TITLE ?></h4>
+            </div>
+            <div class="modal-body" style="text-align: center">
+                <img alt="loading" title="loading" src="<?php echo WEBFILES ?>/img/loading_1.gif" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="<?php echo WEBFILES ?>js/rel_empresas.js"></script>
+<script src="<?php echo WEBFILES ?>js/scripts.js"></script>

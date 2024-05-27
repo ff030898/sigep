@@ -1,0 +1,318 @@
+<style>
+    .link_ativo{
+        color: red;
+        cursor: pointer;
+    }
+</style>
+<div id="page-wrapper">
+    <form class="frmSave" id="frmSave" autocomplete="off" >
+        <div class="row">
+            <div class="col-lg-8" >
+                <h1 class="page-header">Perfil de Cargo</h1>
+            </div>
+            <div class="col-lg-4 botoes_menu" >
+                <button type="button" id="edit" class="btn btn-default page-header " >
+                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Salvar
+                </button>
+
+                <button type="button" id="close" class="btn btn-default page-header " >
+                    <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span> Cancelar
+                </button>
+            </div>
+        </div>
+        <input type="hidden" name="txtID" id="txtID" value="<?php echo $view_perfil["id"] ?>" />
+        <input type="hidden" name="txtID_Cargo" id="txtID_Cargo" value="<?php echo $view_perfil["id_cargo"] ?>" />
+        <div class="panel panel-default">
+            <div class="panel-body" >
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Cargo</label>
+                            <input class="form-control" value="<?php echo $view_perfil["descricao_formatado"] ?>" disabled required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tabs-content">
+                <div class="tabs-menu clearfix">
+                    <ul>
+                        <li><a class="active-tab-menu" href="#" data-tab="tab1">Caract. Cargo</a></li>
+                        <?php
+                        foreach ($view_indicadores as $value) {
+                            echo '<li><a href="#" data-tab="tab_comp_' . $value["id"] . '">' . $value["descricao"] . '</a></li>';
+                        }
+                        ?>
+                    </ul>
+                </div>
+                <div class="tab1 tabs first-tab">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Elaboração*</label>
+                                <input class="form-control" onkeyup="validade(this)" onblur="validade(this)" autocomplete="off" name="txtElaboracao" id="txtElaboracao" value="<?php echo $view_perfil["elaboracao"]; ?>" maxlength="250" required>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Aprovação*</label>
+                                <input class="form-control" onkeyup="validade(this)" onblur="validade(this)" autocomplete="off" name="txtAprovacao" id="txtAprovacao" value="<?php echo $view_perfil["aprovacao"]; ?>" maxlength="250" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <label>Qualificação Básica*</label>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="form-group">
+                                        <textarea class="form-control" onkeyup="validade(this)" onblur="validade(this)" name="txtQualifBasica" id="txtQualifBasica" rows="8"><?php echo $view_perfil["qualificacao_basica"]; ?></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <label>Sumário das Descrições*</label>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="form-group">
+                                        <textarea class="form-control" onkeyup="validade(this)" onblur="validade(this)" name="txtSumDesc" id="txtSumDesc" rows="8"><?php echo $view_perfil["sumario"]; ?></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <label>Fonte Interna</label>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-sm-8">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div id='TextBoxesGroupInterna'>
+                                                <div class="row" id="TextBoxDivInterna1">
+                                                    <div class="col-sm-12"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <span class="">
+                                                <button class="btn btn-default" id='addButtonInterna' type="button"><i class="fa fa-plus"></i></button>
+                                                <button class="btn btn-default" id='removeButtonInterna' type="button"><i class="fa fa-minus"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        &nbsp;
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Conceito na última avaliação*</label>
+                                                <select class="form-control" autocomplete="off" name="selConceito" id="selConceito" >
+                                                    <option selected value="A">A</option>
+                                                    <option value="B">B</option>
+                                                    <option value="C">C</option>
+                                                    <option value="D">D</option>
+                                                    <option value="E">E</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Não ter advertência nos últimos 90 dias*</label>
+                                                <select class="form-control" autocomplete="off" name="selAdvertência" id="selAdvertência" >
+                                                    <option selected value="1">Grave</option>
+                                                    <option value="2">Leve</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <label>Fonte Externa*</label>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="form-group">
+                                        <div class="form-group ">
+                                            <label>Descrição</label>
+                                            <textarea class="form-control" name="txtFonteExterna" id="txtFonteExterna" rows="2"><?php echo $view_perfil["fonte_externa"]; ?></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <?php
+                foreach ($view_indicadores as $value) {
+                    echo '
+                        <div class="tab_comp_' . $value["id"] . ' tabs">
+                            <div class="panel-body" >
+                    ';
+                    foreach ($view_sub[$value["id"]] as $value2) {
+
+                        $ctrl = 0;
+                        echo '
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <label>' . $value2["descricao"] . '</label>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="form-group">
+                        ';
+                        foreach ($view_perfil["indicadores"] as $key3 => $value3) {
+                            if ($value3["id_indicadores_quant_tipo"] == $value["id"] && $value3["id_indicadores_quant_sub"] == $value2["id"]) {
+
+                                $ctrl = 1;
+
+                                echo'
+                                    <div id="TextBoxDiv' . $value["id"] . $value2["id"] . $value3["id"] . '">
+                                        <div class="form-group ">
+                                            <label>Descrição:*</label>
+                                            <textarea class="form-control" id_indicador="' . $value["id"] . '" id_sub="' . $value2["id"] . '" onkeyup="validade(this)" onblur="validade(this)" name="txtDescAperfeicoamento1" id="txtDescAperfeicoamento1" rows="1">' . $value3["descricao"] . '</textarea>
+                                            <a class="link_ativo" onclick="remover_box(' . $value["id"] . $value2["id"] . $value3["id"] . ')">Remover</a>
+                                        </div>
+                                    </div>
+                                ';
+                            }
+                        }
+                        echo '
+                                        <div id="TextBoxesGroup' . $value["id"] . $value2["id"] . '">
+                                            <div class="row" id="TextBoxDiv' . $value["id"] . $value2["id"] . '">
+                                                <div class="col-sm-12 "></div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <span class="">
+                                                    <button class="btn btn-default" onclick="adicionar_box(' . $value["id"] . $value2["id"] . ',' . $value["id"] . ',' . $value2["id"] . ')" type="button"><i class="fa fa-plus"></i></button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        ';
+
+                        if (!$ctrl) {
+                            echo'
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <label>' . $value2["descricao"] . '</label>
+                                </div>
+                                <div class="panel-body">
+                                        <div class="form-group">
+                                            <div class="form-group ">
+                                                <label>Descrição:*</label>
+                                                <textarea class="form-control" id_indicador="' . $value["id"] . '" id_sub="' . $value2["id"] . '" onkeyup="validade(this)" onblur="validade(this)" name="txtDescAperfeicoamento1" id="txtDescAperfeicoamento1" rows="1"></textarea>
+                                            </div>
+                                            <div id="TextBoxesGroup' . $value["id"] . $value2["id"] . '">
+                                                <div class="row" id="TextBoxDiv' . $value["id"] . $value2["id"] . '">
+                                                    <div class="col-sm-12 "></div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <span class="">
+                                                        <button class="btn btn-default" onclick="adicionar_box(' . $value["id"] . $value2["id"] . ',' . $value["id"] . ',' . $value2["id"] . ')" type="button"><i class="fa fa-plus"></i></button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        ';
+                        }
+                    }
+                    echo'
+                            </div>
+                        </div>
+                    ';
+                }
+                ?>
+
+            </div>
+        </div>
+    </form>
+</div>
+
+<script src="<?php echo WEBFILES ?>js/perfil_cargo2.js?<?php echo filemtime($_SERVER["DOCUMENT_ROOT"] . "/webfiles/js/perfil_cargo2.js"); ?>"></script>
+<script src="<?php echo WEBFILES ?>js/perfil_cargo.js?<?php echo filemtime($_SERVER["DOCUMENT_ROOT"] . "/webfiles/js/perfil_cargo.js"); ?>"></script>
+<script src="<?php echo WEBFILES ?>js/scripts.js?<?php echo filemtime($_SERVER["DOCUMENT_ROOT"] . "/webfiles/js/scripts.js"); ?>"></script>
+
+<script type="text/javascript">
+                                            window.onload = function () {
+                                                $('#selCargo').focus();
+                                                $("#selConceito").val("<?php echo $view_perfil["conceito_avaliacao"]; ?>").change();
+                                                $("#selAdvertência").val("<?php echo $view_perfil["advertencia"]; ?>").change();
+                                            }
+
+
+
+                                            function adicionar_fonte_externa(id_cargo = null, tempo = null, tipo = null) {
+                                                var newTextBoxDiv = $(document.createElement('div')).attr("id", 'TextBoxDivInterna' + counter_interna);
+                                                newTextBoxDiv.after().html('<div class="row" id="teste"><div class="col-sm-8"><div class="form-group"><label>' + counter_interna + ': Cargo</label><select class="form-control" autocomplete="off" name="selCargoInterna' + counter_interna + '" id="selCargoInterna' + counter_interna + '" ><option value="">Selecione</option><?php
+                foreach ($view_cargo as $key => $value) {
+                    echo '<option value="' . $value["id"] . '">' . $value["descricao_formatado"] . '</option>';
+                }
+                ?> </select></div></div><div class="col-sm-2"> <div class="form-group"><label>Tempo*</label><input class="form-control" type="number" min="1" step="1" autocomplete="off" name="txtTempo' + counter_interna + '" id="txtTempo' + counter_interna + '" maxlength="2" value="1" required></div></div><div class="col-sm-2"><div class="form-group"><label>Tipo*</label><select class="form-control" autocomplete="off" name="selTipo' + counter_interna + '" id="selTipo' + counter_interna + '" ><option selected value="1">ANOS</option><option value="2">MESES</option></select></div></div></div>');
+                                                newTextBoxDiv.appendTo("#TextBoxesGroupInterna");
+
+                                                if (id_cargo) {
+                                                    $("#selCargoInterna" + counter_interna).val(id_cargo).change();
+                                                    $("#txtTempo" + counter_interna).val(tempo).change();
+                                                    $("#selTipo" + counter_interna).val(tipo).change();
+                                                }
+
+                                                counter_interna++;
+                                            }
+
+
+                                            $(document).ready(function () {
+//Formação Interna
+                                                $("#addButtonInterna").click(function () {
+                                                    adicionar_fonte_externa();
+                                                });
+
+                                                $("#removeButtonInterna").click(function () {
+                                                    if (counter_interna == 2) {
+                                                        return false;
+                                                    }
+                                                    counter_interna--;
+                                                    $("#TextBoxDivInterna" + counter_interna).remove();
+                                                });
+//Formação Interna Fim
+                                            });
+
+
+
+<?php
+echo 'counter_interna--;';
+?>
+<?php
+foreach ($view_perfil["fonte_interna"] as $key => $value) {
+    echo '
+adicionar_fonte_externa(' . $value["id_cargo_interno"] . ', ' . $value["tempo"] . ', ' . $value["tipo"] . ');
+        ';
+}
+?>
+
+</script>

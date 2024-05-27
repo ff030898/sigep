@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link rel="icon" href="<?php echo WEBFILES . "img/" . $_SESSION["logo_header"]; ?>" />
+        <title><?php echo TITLE ?></title>
+
+        <!-- Bootstrap Core CSS -->
+        <link href="<?php echo WEBFILES ?>test/bootstrap.min.css" rel="stylesheet">
+
+        <!-- MetisMenu CSS -->
+        <link href="<?php echo WEBFILES ?>test/metisMenu.min.css" rel="stylesheet">
+
+        <!-- Custom CSS -->
+        <link href="<?php echo WEBFILES ?>test/sb-admin-2.css" rel="stylesheet">
+
+        <!-- Custom Fonts -->
+        <link href="<?php echo WEBFILES ?>test/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="<?php echo WEBFILES ?>test/html5shiv.js"></script>
+            <script src="<?php echo WEBFILES ?>test/respond.min.js"></script>
+        <![endif]-->
+
+    </head>
+
+    <body>
+
+        <div id="wrapper">
+
+            <!-- Navigation -->
+            <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="index.html"><img alt="logo" title="Logo" src="<?php echo WEBFILES ?>img/logo_header.png" /></a>
+                    <p class="unidade">Unidade | Alfenas</p>
+
+                </div>
+
+                <!-- /.navbar-header -->
+
+                <ul class="nav navbar-top-links navbar-right navbar-collapse">
+                    <!--                    <li class="dropdown">
+                                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                                <i class="fa fa-envelope fa-fw"></i>
+                                                <i class="fa fa-caret-down"></i>
+                                            </a>
+                                            <ul class="dropdown-menu dropdown-messages">
+                                                <li>
+                                                    <a href="#">
+                                                        <div>
+                                                            <strong>John Smith</strong>
+                                                            <span class="pull-right text-muted">
+                                                                <em>Yesterday</em>
+                                                            </span>
+                                                        </div>
+                                                        <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
+                                                    </a>
+                                                </li>
+                                                <li class="divider"></li>
+                                                <li>
+                                                    <a class="text-center" href="#">
+                                                        <strong>Read All Messages</strong>
+                                                        <i class="fa fa-angle-right"></i>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                             /.dropdown-messages
+                                        </li>-->
+                    <!-- /.dropdown -->
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <!--Atenção-->
+                            <span class="fa fa-warning" aria-hidden="true"></span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-tasks">
+                            <li>
+                                <a href="#">
+                                    <div>
+                                        <button type="button" id="" class="btn btn-default btn-lg" >
+                                            <span class="glyphicon glyphicon-warning-sign" aria-hidden="true">as</span>asd
+                                        </button>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+
+                            <li>
+                                <a class="text-center" href="#">
+                                    <strong>See All Tasks</strong>
+                                    <i class="fa fa-angle-right"></i>
+                                </a>
+                            </li>
+                        </ul>
+                        <!-- /.dropdown-tasks -->
+                    </li>
+                    <!-- /.dropdown -->
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <span class="fa fa-question-circle" aria-hidden="true"></span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-alerts">
+                            <li>
+                                <a href="#">
+                                    <div>
+                                        <i class="fa fa-comment fa-fw"></i> New Comment
+                                        <span class="pull-right text-muted small">4 minutes ago</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+
+                            <li>
+                                <a class="text-center" href="#">
+                                    <strong>See All Alerts</strong>
+                                    <i class="fa fa-angle-right"></i>
+                                </a>
+                            </li>
+                        </ul>
+                        <!-- /.dropdown-alerts -->
+                    </li>
+                    <!-- /.dropdown -->
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <i class="fa fa-user"></i>
+                            Diego Rodrigues Costa
+                        </a>
+                        <ul class="dropdown-menu dropdown-user">
+                            <li><a href="#"><i class="fa fa-user"></i> User Profile</a>
+                            </li>
+                            <li><a href="#"><i class="fa fa-cog"></i> Settings</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li><a href="/login/sair"><i class="fa fa-power-off"></i> Logout</a>
+                            </li>
+                        </ul>
+                        <!-- /.dropdown-user -->
+                    </li>
+                    <!-- /.dropdown -->
+                </ul>
+                <!-- /.navbar-top-links -->
+
+                <div class="navbar-default sidebar" role="navigation">
+                    <div class="sidebar-nav navbar-collapse">
+                        <ul class="nav" id="side-menu">
+                            <li><!-- Unidade -->
+                                <a href="#"><i class="fa fa-globe"></i> Unidades<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="flot.html">Alterosa</a>
+                                    </li>
+                                    <li>
+                                        <a href="flot.html">Machado</a>
+                                    </li>
+                                    <li>
+                                        <a href="flot.html">Pouso Alegre</a>
+                                    </li>
+                                </ul>
+                            </li><!-- / Unidade -->
+                            <li>
+                                <a href="forms.html"><i class="fa fa-star"></i> Favoritos</a>
+                            </li>
+                            <li><!-- Cadastros -->
+                                <a href="#"><i class="fa fa-folder"></i> Cadastros<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="flot.html">Clientes</a>
+                                    </li>
+                                    <li>
+                                        <a href="morris.html">Setores</a>
+                                    </li>
+                                    <li>
+                                        <a href="morris.html">Funções</a>
+                                    </li>
+                                    <li>
+                                        <a href="morris.html">Funcionários</a>
+                                    </li>
+                                    <li>
+                                        <a href="morris.html">Clínicas e Laboratórios</a>
+                                    </li>
+                                </ul>
+                                <!-- /.nav-second-level -->
+                            </li> <!-- / Cadastros -->
+                            <li> <!-- Relatórios -->
+                                <a href="#"><i class="fa fa-file"></i> Relatórios<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="panels-wells.html">Empresas</a>
+                                    </li>
+                                    <li>
+                                        <a href="buttons.html">Setores</a>
+                                    </li>
+                                    <li>
+                                        <a href="notifications.html">Funções</a>
+                                    </li>
+                                    <li>
+                                        <a href="typography.html">Funcionários</a>
+                                    </li>
+                                    <li>
+                                        <a href="icons.html">Qtde Funcionários p/ Setor</a>
+                                    </li>
+                                    <li>
+                                        <a href="grid.html">Qtde Funcionários p/ Função</a>
+                                    </li>
+                                    <li>
+                                        <a href="grid.html">Funcionários Ativos</a>
+                                    </li>
+                                </ul>
+                                <!-- /.nav-second-level -->
+                            </li> <!-- / Relatórios -->
+                            <li> <!-- Saídas -->
+                                <a href="#"><i class="fa fa-cloud-download"></i> Saídas<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="panels-wells.html">PCMSO</a>
+                                    </li>
+                                    <li>
+                                        <a href="buttons.html">ASO</a>
+                                    </li>
+                                    <li>
+                                        <a href="notifications.html">Ficha Médica</a>
+                                    </li>
+                                    <li>
+                                        <a href="typography.html">Audiometria</a>
+                                    </li>
+                                    <li>
+                                        <a href="icons.html"> Relatório Anual</a>
+                                    </li>
+                                </ul>
+                                <!-- /.nav-second-level -->
+                            </li> <!-- / Saídas -->
+                            <li> <!-- Configurações -->
+                                <a href="#"><i class="fa fa-cogs"></i> Configurações<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="#">Second Level Item</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Second Level Item</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Third Level <span class="fa arrow"></span></a>
+                                        <ul class="nav nav-third-level">
+                                            <li>
+                                                <a href="#">Third Level Item</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Third Level Item</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Third Level Item</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Third Level Item</a>
+                                            </li>
+                                        </ul>
+                                        <!-- /.nav-third-level -->
+                                    </li>
+                                </ul>
+                                <!-- /.nav-second-level -->
+                            </li> <!-- / Configurações -->
+                        </ul>
+                    </div>
+                    <!-- /.sidebar-collapse -->
+                </div>
+                <!-- /.navbar-static-side -->
+            </nav>
+
+            <div id="page-wrapper">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">Dashboard</h1>
+                    </div>
+                    <!-- /.col-lg-12 -->
+                </div>
+
+                <!-- /.row -->
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="panel panel-default">
+
+                            <!-- /.panel-heading -->
+                            <div class="panel-body">
+                                <div id="morris-area-chart"></div>
+                            </div>
+                            <!-- /.panel-body -->
+                        </div>
+                        <!-- /.panel -->
+
+                        <button type="button" id="recover_password" class="btn btn-default btn-lg" data-loading-text="Carregando ...">
+                            <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span> Sair
+                        </button>
+
+                    </div>
+                    <!-- /.col-lg-8 -->
+                    <div class="col-lg-4">
+
+
+
+                    </div>
+                    <!-- /.col-lg-4 -->
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /#page-wrapper -->
+
+        </div>
+        <!-- /#wrapper -->
+
+        <!-- jQuery -->
+        <script src="<?php echo WEBFILES ?>js/jquery.min.js"></script>
+
+        <!-- Bootstrap Core JavaScript -->
+        <script src="<?php echo WEBFILES ?>js/bootstrap.min.js"></script>
+
+        <!-- Metis Menu Plugin JavaScript -->
+        <script src="<?php echo WEBFILES ?>test/metisMenu.min.js"></script>
+
+        <!-- Custom Theme JavaScript -->
+        <script src="<?php echo WEBFILES ?>test/sb-admin-2.js"></script>
+
+
+
+    </body>
+
+</html>

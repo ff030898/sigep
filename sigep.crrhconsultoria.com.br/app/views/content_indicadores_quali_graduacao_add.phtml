@@ -1,0 +1,81 @@
+<div id="page-wrapper">
+    <form class="frmSave" id="frmSave" autocomplete="off" >
+        <div class="row">
+            <div class="col-lg-8" >
+                <h1 class="page-header">Graduação das Habilidades</h1>
+            </div>
+            <div class="col-lg-4 botoes_menu" >
+                <button type="button" id="save" class="btn btn-default page-header " >
+                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Salvar
+                </button>
+
+                <button type="button" id="close" class="btn btn-default page-header " >
+                    <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span> Cancelar
+                </button>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-body" >
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Indicador*</label>
+                            <select class="form-control" autocomplete="off" name="selIndicador" id="selIndicador" >
+                                <option selected value="">Selecione</option>
+                                <?php
+                                foreach ($view_indicadores as $key => $value) {
+                                    echo '
+                                        <option value="' . $value["id"] . '">' . $value["descricao"] . '</option>
+                                    ';
+                                }
+                                ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Descrição Resumida*</label>
+                            <input class="form-control" onkeyup="validade(this)" onblur="validade(this)" autocomplete="off" name="txtDescricaoResumida" id="txtDescricaoResumida" maxlength="250" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Ordem Horizontal: </label>
+                            <label class="radio-inline">
+                                <input type="radio" checked  name="radOrdem" id="radOrdem" value="1" >1
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio"  name="radOrdem" id="radOrdem" value="2">2
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio"  name="radOrdem" id="radOrdem" value="3">3
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio"  name="radOrdem" id="radOrdem" value="4">4
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label>Descrição*</label>
+                            <textarea class="form-control" name="txtDescricao" id="txtDescricao" rows="6"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script src="<?php echo WEBFILES ?>js/indicadores_quali_graduacao.js?<?php echo filemtime($_SERVER["DOCUMENT_ROOT"] . "/webfiles/js/indicadores_quali_graduacao.js"); ?>"></script>
+<script src="<?php echo WEBFILES ?>js/scripts.js?<?php echo filemtime($_SERVER["DOCUMENT_ROOT"] . "/webfiles/js/scripts.js"); ?>"></script>
+
+<script type="text/javascript">
+                                window.onload = function () {
+                                    $('#selIndicador').focus();
+                                }
+</script>

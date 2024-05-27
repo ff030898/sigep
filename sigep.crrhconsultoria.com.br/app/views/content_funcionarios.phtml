@@ -1,0 +1,68 @@
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-10" >
+            <h1 class="page-header">Funcionários</h1>
+        </div>
+
+        <?php
+        if ($view_adiciona) {
+            echo '
+                    <div class="col-lg-2 botoes_menu" >
+            <button type="button" id="add" class="btn btn-default page-header " >
+                <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span> Adicionar
+            </button>
+        </div>
+                ';
+        }
+        ?>
+
+
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="dataTable_wrapper">
+                <table width="100%" class="table table-striped table-bordered table-hover" id="funcionarios_lista">
+                    <thead>
+                        <tr>
+                            <th style="width: 7%">ID</th>
+                            <th>Nome</th>
+                            <th>Cargo</th>
+                            <th style="width: 7%">Situação</th>
+                            <th style="width: 5%"></th>
+                            <th style="width: 5%"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        foreach ($view_funcionarios as $un => $t) {
+
+                            echo '
+                                    <tr>
+                                        <td>' . $t["id"] . '</td>
+                                        <td>' . $t["nome"] . '</td>
+                                        <td>' . $t["descricao_formatado"] . '</td>
+                                        <td>' . $t["status"] . '</td>
+                                        <td><a href="#" onclick="javascript:edita(' . $t["id"] . ');"><i class="fa fa-pencil-square-o fa-2x"></i></a></td>
+                                        <td><a href="#" onclick="javascript:remove(' . $t["id"] . ');"><i class="fa fa-remove fa-2x"></i></a></td>
+                                    </tr>
+                             ';
+                        }
+                        ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="<?php echo WEBFILES ?>js/scripts.js?<?php echo filemtime($_SERVER["DOCUMENT_ROOT"] . "/webfiles/js/scripts.js"); ?>"></script>
+<script src="<?php echo WEBFILES ?>js/funcionarios.js?<?php echo filemtime($_SERVER["DOCUMENT_ROOT"] . "/webfiles/js/funcionarios.js"); ?>"></script>
+
+<?php
+if ($_SESSION["id_cliente"] == "0") {
+    echo '
+    <script type="text/javascript">
+        trocaCliente();
+    </script>
+    ';
+}
+?>
